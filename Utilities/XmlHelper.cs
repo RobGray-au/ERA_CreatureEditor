@@ -1,8 +1,10 @@
+using CreatureXmlEditor.Models;
 using System;
 using System.IO;
+using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
-using CreatureXmlEditor.Models;
 
 namespace CreatureXmlEditor.Utilities
 {
@@ -32,12 +34,26 @@ namespace CreatureXmlEditor.Utilities
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(Creature));
-                XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
-                namespaces.Add(string.Empty, string.Empty);
+                //XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
+                //namespaces.Add(string.Empty, string.Empty);
 
-                using (StreamWriter writer = new StreamWriter(filePath))
+                // Configure XmlWriterSettings to omit XML declaration
+                var settings = new XmlWriterSettings
                 {
-                    serializer.Serialize(writer, creature, namespaces);
+                    Indent = true,                // Pretty-print
+                    OmitXmlDeclaration = true,    // No <?xml ... ?> declaration
+                    Encoding = new UTF8Encoding(false) // UTF-8 without BOM
+                };
+
+                // Serialize to string without DTD or XML declaration
+                using (var stringWriter = new StringWriter())
+                using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
+                {
+                    serializer.Serialize(xmlWriter, creature);
+                    string xmlOutput = stringWriter.ToString();
+
+                    Console.WriteLine("Serialized XML (no DTD, no declaration):");
+                    Console.WriteLine(xmlOutput);
                 }
 
                 // Format the XML with proper indentation

@@ -1,5 +1,4 @@
-{
-    "AttackTypes": [
+	[
         {
             "WeaponName": "Armored Fist",
             "TableName": "Armored Fist",
@@ -481,4 +480,3 @@
             "Description": "basic"
         }
     ]
-}
