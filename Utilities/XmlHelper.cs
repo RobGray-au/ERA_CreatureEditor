@@ -3,79 +3,56 @@ using System;
 using System.IO;
 using System.Text;
 using System.Xml;
-using System.Xml.Linq;
 using System.Xml.Serialization;
 
 namespace CreatureXmlEditor.Utilities
 {
     public class XmlHelper
     {
+        private static readonly XmlSerializer CreatureSerializer = new XmlSerializer(typeof(Creature));
+
         public static Creature LoadFromFile(string filePath)
         {
-            try
-            {
-                if (!File.Exists(filePath))
-                    throw new FileNotFoundException($"File not found: {filePath}");
+            if (string.IsNullOrWhiteSpace(filePath))
+                throw new ArgumentException("filePath is required.", nameof(filePath));
 
-                XmlSerializer serializer = new XmlSerializer(typeof(Creature));
-                using (StreamReader reader = new StreamReader(filePath))
-                {
-                    return (Creature)serializer.Deserialize(reader);
-                }
-            }
-            catch (Exception ex)
+            if (!File.Exists(filePath))
+                throw new FileNotFoundException($"File not found: {filePath}");
+
+            var settings = new XmlReaderSettings
             {
-                throw new Exception($"Error loading XML file: {ex.Message}", ex);
+                DtdProcessing = DtdProcessing.Prohibit,
+                IgnoreComments = true,
+                IgnoreWhitespace = true
+            };
+
+            using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var reader = XmlReader.Create(fs, settings))
+            {
+                return (Creature)CreatureSerializer.Deserialize(reader);
             }
         }
 
         public static void SaveToFile(Creature creature, string filePath)
         {
-            try
+            if (creature == null) throw new ArgumentNullException(nameof(creature));
+            if (string.IsNullOrWhiteSpace(filePath)) throw new ArgumentException("filePath is required.", nameof(filePath));
+
+            var settings = new XmlWriterSettings
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(Creature));
-                //XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
-                //namespaces.Add(string.Empty, string.Empty);
+                Indent = true,
+                OmitXmlDeclaration = true,
+                Encoding = new UTF8Encoding(false)
+            };
 
-                // Configure XmlWriterSettings to omit XML declaration
-                var settings = new XmlWriterSettings
-                {
-                    Indent = true,                // Pretty-print
-                    OmitXmlDeclaration = true,    // No <?xml ... ?> declaration
-                    Encoding = new UTF8Encoding(false) // UTF-8 without BOM
-                };
-
-                // Serialize to string without DTD or XML declaration
-                using (var stringWriter = new StringWriter())
-                using (var xmlWriter = XmlWriter.Create(stringWriter, settings))
-                {
-                    serializer.Serialize(xmlWriter, creature);
-                    string xmlOutput = stringWriter.ToString();
-
-                    Console.WriteLine("Serialized XML (no DTD, no declaration):");
-                    Console.WriteLine(xmlOutput);
-                }
-
-                // Format the XML with proper indentation
-                FormatXmlFile(filePath);
-            }
-            catch (Exception ex)
+            using (var fs = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+            using (var writer = XmlWriter.Create(fs, settings))
             {
-                throw new Exception($"Error saving XML file: {ex.Message}", ex);
+                var namespaces = new XmlSerializerNamespaces();
+                namespaces.Add(string.Empty, string.Empty);
+                CreatureSerializer.Serialize(writer, creature, namespaces);
             }
         }
 
-        private static void FormatXmlFile(string filePath)
-        {
-            try
-            {
-                XDocument doc = XDocument.Load(filePath);
-                using (StreamWriter writer = new StreamWriter(filePath))
-                {
-                    doc.Save(writer);
-                }
-            }
-            catch { /* Formatting is optional */ }
-        }
     }
 }

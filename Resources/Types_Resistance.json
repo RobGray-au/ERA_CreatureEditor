@@ -1,11 +1,10 @@
-
-	[
-		{"ResistanceName":"Channeling", "Concept":"Channeling", "Class":"Magical"},
-		{"ResistanceName":"Essence", "Concept":"Essence", "Class":"Magical"},
-		{"ResistanceName":"Mentalism", "Concept":"Mentalism", "Class":"Magical"},
-		{"ResistanceName":"Physical", "Concept":"Physical", "Class":"Physical"},
-		{"ResistanceName":"Fear", "Concept":"Fear", "Class":"Mental"},
-		{"ResistanceName":"Disease", "Concept":"Disease", "Class":"Physical"}
-	]
+[
+	{"ResistanceName":"Channeling", "Concept":"Channeling", "Class":"Magical"},
+	{"ResistanceName":"Essence", "Concept":"Essence", "Class":"Magical"},
+	{"ResistanceName":"Mentalism", "Concept":"Mentalism", "Class":"Magical"},
+	{"ResistanceName":"Physical", "Concept":"Physical", "Class":"Physical"},
+	{"ResistanceName":"Fear", "Concept":"Fear", "Class":"Mental"},
+	{"ResistanceName":"Disease", "Concept":"Disease", "Class":"Physical"}
+]
 
 	

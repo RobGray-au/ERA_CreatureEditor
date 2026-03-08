@@ -1,4 +1,4 @@
-﻿using CreatureXmlEditor.Models;
+using CreatureXmlEditor.Models;
 using CreatureXmlEditor.Utilities;
 using System;
 using System.Collections.Generic;
@@ -26,6 +26,12 @@ namespace CreatureXmlEditor
             InitializeComponent();
             LoadJSON();
 
+            Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            DateTime buildDate = new DateTime(2000, 1, 1)
+                                    .AddDays(version.Build).AddSeconds(version.Revision * 2);
+            string displayableVersion = $"{version} ({buildDate})";
+            
+            this.txtSplash.Text += string.Format("\n\r\n\r\n\rVer: {0}   Created by: RobG\n",displayableVersion);
             this.Shown += ShowForm;
         }
 
@@ -64,12 +70,7 @@ namespace CreatureXmlEditor
             // Use our own font. Because we CAN.
             Font _TabFont = tabControl.Font;
             Brush _activeTabBG = Brushes.Gray;
-            Brush _inactiveTabBG = Brushes.LightGray;
-            //Font _TabFont = new Font(e.Font.FontFamily, (float)9, FontStyle.Bold, GraphicsUnit.Pixel);
-            //Font fnt = new Font(e.Font.FontFamily, (float)7.5, FontStyle.Bold);
-
-            // Get the item from the collection.
-            TabPage _TabPage = tabControl.TabPages[e.Index];
+            //Brush _inactiveTabBG = Brushes.LightGray;
 
             // Get the real bounds for the tab rectangle.
             Rectangle _TabBounds = tabControl.GetTabRect(e.Index);
@@ -88,9 +89,11 @@ namespace CreatureXmlEditor
 
 
             // Draw string. Center the text.
-            StringFormat _StringFlags = new StringFormat();
-            _StringFlags.Alignment = StringAlignment.Center;
-            _StringFlags.LineAlignment = StringAlignment.Center;
+            StringFormat _StringFlags = new StringFormat
+            {
+                Alignment = StringAlignment.Center,
+                LineAlignment = StringAlignment.Center
+            };
             g.DrawString(tabControl.TabPages[e.Index].Text, _TabFont, _TextBrush,
                          _TabBounds, new StringFormat(_StringFlags));
 
@@ -101,15 +104,25 @@ namespace CreatureXmlEditor
         #region Helper Methods
         private void LoadJSON()
         {
-            ResistanceList = new CreatureModels().ResistanceTypes;
-            AttackList = new CreatureModels().AttackTypes;
-            string json;
+            try
+            {
+                ResistanceList = Utilities.JsonHelper.LoadResistances("Resources/Types_Resistance.json");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading resistance types: {ex.Message}", "JSON Load Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ResistanceList = new List<ResistanceType>();
+            }
 
-            json = File.ReadAllText("Resources/Types_Resistance.json");
-            ResistanceList = System.Text.Json.JsonSerializer.Deserialize<List<ResistanceType>> (json);
-            
-            json = File.ReadAllText("Resources/Types_Attacks.json");
-            AttackList = System.Text.Json.JsonSerializer.Deserialize<List<AttackType>>(json);
+            try
+            {
+                AttackList = Utilities.JsonHelper.LoadAttacks("Resources/Types_Attacks.json");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading attack types: {ex.Message}", "JSON Load Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                AttackList = new List<AttackType>();
+            }
 
         }
 
@@ -147,12 +160,17 @@ namespace CreatureXmlEditor
 
         private void AlertSaveRequired()
         {
-            var isSave = MessageBox.Show("You must create or load  the character before assigning properties", "No Character saved", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            DialogResult isSave = MessageBox.Show("You must create or load  the character before assigning properties", "No Character saved", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             tabBasicInfo.Select();
         }
 
         private void SaveCreature()
         {
+            if (creature == null)
+            {
+                MessageBox.Show("There is no creature to save. Create or load a creature first.", "No Creature", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             if (string.IsNullOrEmpty(currentFilePath))
             {
                 MessageBox.Show("Please use 'Save As' to specify a file location.", "No File Path", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -178,7 +196,7 @@ namespace CreatureXmlEditor
         private void LoadDefensiveModifications()
         {
             lstDefensiveModifications.Items.Clear();
-            foreach (var mod in creature.CombatStatistics.DefensiveModifications.Modifications)
+            foreach (DefensiveModification mod in creature.CombatStatistics.DefensiveModifications.Modifications)
             {
                 lstDefensiveModifications.Items.Add(mod);
             }
@@ -187,7 +205,7 @@ namespace CreatureXmlEditor
         private void LoadResistanceRollBonuses()
         {
             lstResistanceRollBonuses.Items.Clear();
-            foreach (var bonus in creature.CombatStatistics.ResistanceRollBonuses.Bonuses)
+            foreach (ResistanceRollBonus bonus in creature.CombatStatistics.ResistanceRollBonuses.Bonuses)
             {
                 lstResistanceRollBonuses.Items.Add(bonus);
             }
@@ -295,7 +313,7 @@ namespace CreatureXmlEditor
         private void tabLevelCharacter_Enter(object sender, EventArgs e)
         {
             cboResistConcept.Items.Clear();
-            var arrQ = ResistanceList.Select(i => new { Value = i.Concept, Name = i.Name }).ToArray();
+            var arrQ = ResistanceList.Select(i => new { Value = i.Concept, Name = i.ResistanceName }).ToArray();
             cboResistConcept.Items.AddRange(ResistanceList.ToArray());
             cboResistConcept.SelectedIndex = -1;
         }
@@ -334,7 +352,7 @@ namespace CreatureXmlEditor
             }
             LoadResistanceRollBonuses();
 
-            ResetResistances();
+            ResetResistancesAdd();
             isModified = true;
             UpdateTitle();
         }
@@ -345,14 +363,15 @@ namespace CreatureXmlEditor
             {
                 creature.CombatStatistics.ResistanceRollBonuses.Bonuses.RemoveAt(lstResistanceRollBonuses.SelectedIndex);
                 LoadResistanceRollBonuses();
-                ResetResistances();
+                ResetResistancesAdd();
                 isModified = true;
                 UpdateTitle();
             }
         }
 
-        private void ResetResistances()
+        private void ResetResistancesAdd()
         {
+            btnAddResistanceRollBonus.Text = "Add";
             cboResistConcept.Text = "";
             cboResistConcept.SelectedIndex = -1;
             numResistBonus.Value = 0;
@@ -364,12 +383,15 @@ namespace CreatureXmlEditor
         // Attacks
         private void tabCombat_Enter(object sender, EventArgs e)
         {
-            if (creature == null) { AlertSaveRequired(); }
+            if (creature == null) 
+            { 
+                AlertSaveRequired();
+                return;
+            }
             cboAttackTableName.Items.Clear();
             var qA = AttackList.Select(i => new { WeapName = i.WeaponName, TblName = i.TableName }).ToArray();
             cboAttackTableName.Items.AddRange(qA.ToArray());
             cboAttackTableName.SelectedIndex = -1;
-
 
         }
 
@@ -381,8 +403,8 @@ namespace CreatureXmlEditor
             if (lstAttacks.SelectedIndex >= 0)
             {
                 var attack = creature.CombatStatistics.Attacks.AttackList[lstAttacks.SelectedIndex];
-                cboAttackTableName.Text = attack.Name;
-                txtAttackName.Text = attack.TableName;
+                cboAttackTableName.Text = attack.TableName;
+                txtAttackName.Text = attack.Name;
                 numAttackBonus.Value = attack.Bonus;
                 numAttackSizeAdj.Value = attack.SizeAdjustment;
                 btnAddAttack.Text = "Update";
@@ -391,10 +413,11 @@ namespace CreatureXmlEditor
         private void cboAttackTableName_SelectedIndexChanged(object sender, EventArgs e)
         {
             //this is new selection , so copy the attack name to the text box for editing
-            if (cboAttackTableName.SelectedIndex >= 0)
+            if (cboAttackTableName.SelectedIndex >= 0 && cboAttackTableName.SelectedIndex < AttackList.Count)
             {
                 var selectedAttack = AttackList[cboAttackTableName.SelectedIndex];
-                txtAttackName.Text = selectedAttack.WeaponName;
+                if (string.IsNullOrWhiteSpace(txtAttackName.Text))
+                    txtAttackName.Text = selectedAttack.WeaponName;
             }
         }
         private void btnAddAttack_Click(object sender, EventArgs e)
@@ -408,8 +431,8 @@ namespace CreatureXmlEditor
             {
                 // Update existing attack
                 var attack = creature.CombatStatistics.Attacks.AttackList[lstAttacks.SelectedIndex];
-                attack.Name = cboAttackTableName.Text;
-                attack.TableName = txtAttackName.Text;
+                attack.Name = txtAttackName.Text;
+                attack.TableName = cboAttackTableName.Text;
                 attack.Bonus = (int)numAttackBonus.Value;
                 attack.SizeAdjustment = (int)numAttackSizeAdj.Value;
             }
@@ -419,7 +442,7 @@ namespace CreatureXmlEditor
                 var attack = new Attack((int)numAttackBonus.Value, txtAttackName.Text, cboAttackTableName.Text, (int)numAttackSizeAdj.Value);
                 creature.CombatStatistics.Attacks.AttackList.Add(attack);
             }
-            ResetAttacks();
+            ResetAttacksAdd();
             LoadAttacks();
 
 
@@ -432,7 +455,7 @@ namespace CreatureXmlEditor
             if (lstAttacks.SelectedIndex >= 0)
             {
                 creature.CombatStatistics.Attacks.AttackList.RemoveAt(lstAttacks.SelectedIndex);
-                ResetAttacks();
+                ResetAttacksAdd();
                 LoadAttacks();
                 isModified = true;
                 UpdateTitle();
@@ -441,8 +464,9 @@ namespace CreatureXmlEditor
         }
 
 
-        private void ResetAttacks()
+        private void ResetAttacksAdd()
         {
+            btnAddAttack.Text = "Add";
             cboAttackTableName.Text = "";
             cboAttackTableName.SelectedIndex = -1;
             txtAttackName.Clear();
@@ -463,11 +487,11 @@ namespace CreatureXmlEditor
                 var defMod = creature.CombatStatistics.DefensiveModifications.Modifications[lstDefensiveModifications.SelectedIndex];
                 txtDefModConcept.Text= defMod.Concept;
                 numDefModBonus.Value = defMod.BonusOrPenalty;
-                btnAddAttack.Text = "Update";
+                btnAddDefensiveModification.Text = "Update";
             }
         }
 
-        private void BtnAddDefensiveModification_Click(object sender, EventArgs e)
+        private void btnAddDefensiveModification_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtDefModConcept.Text))
             {
@@ -489,7 +513,7 @@ namespace CreatureXmlEditor
                 creature.CombatStatistics.DefensiveModifications.Modifications.Add(mod);
             }
             LoadDefensiveModifications();
-
+            ResetDefensiveMod();
             txtDefModConcept.Clear();
             numDefModBonus.Value = 0;
             isModified = true;
@@ -505,6 +529,13 @@ namespace CreatureXmlEditor
                 isModified = true;
                 UpdateTitle();
             }
+        }
+
+        private void ResetDefensiveMod()
+        {
+            txtDefModConcept.Text = "";
+            numDefModBonus.Value = 5;
+            btnAddDefensiveModification.Text = "Add";
         }
         #endregion
 
@@ -548,11 +579,21 @@ namespace CreatureXmlEditor
             {
                 creature.ManeuverSkills.Skills.RemoveAt(lstSkills.SelectedIndex);
                 LoadSkills();
+                ResetSkillAdd();
                 isModified = true;
                 UpdateTitle();
             }
         }
 
+
+        private void ResetSkillAdd()
+        {
+            txtSkillName.Text = "";
+            txtSkillTableName.Text = "";
+            numSkillRanks.Value = 0;
+            numSkillBonus.Value = 0;
+            btnAddSkill.Text = "Add";
+        }
         #endregion
 
 
@@ -595,7 +636,7 @@ namespace CreatureXmlEditor
                     creature = XmlHelper.LoadFromFile(openFileDialog.FileName);
                     currentFilePath = openFileDialog.FileName;
                     LoadCreatureToForm();
-                    MessageBox.Show("File loaded successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("File loaded successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
                     txtSplash.Visible = false;
@@ -610,6 +651,12 @@ namespace CreatureXmlEditor
 
         private void menuSaveAs_Click(object sender, EventArgs e)
         {
+            if (creature == null)
+            {
+                MessageBox.Show("There is no creature to save. Create or load a creature first.", "No Creature", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "Creature XML Files (*.creature.xml)|*.creature.xml|XML Files (*.xml)|*.xml",
@@ -629,16 +676,27 @@ namespace CreatureXmlEditor
             SaveCreature();
         }
 
+        private void menuExit_Click(object sender, EventArgs e) {
+
+            if (isModified) {
+                DialogResult result = MessageBox.Show(
+                    "Unsaved changes will be lost.",
+                    "Confirm close",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result != DialogResult.Yes)
+                    return;
+            }
+
+            Close();
+        }
+
 
 
 
 
         #endregion
-
-        private void txtSplash_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
 
     }

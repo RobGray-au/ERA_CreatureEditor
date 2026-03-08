@@ -237,7 +237,7 @@ namespace CreatureXmlEditor
         }
 
         // Defensive Modifications
-        private void BtnAddDefensiveModification_Click(object sender, EventArgs e)
+        private void btnAddDefensiveModification_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtDefModConcept.Text))
             {

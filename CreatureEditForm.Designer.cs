@@ -1,4 +1,4 @@
-﻿namespace CreatureXmlEditor
+namespace CreatureXmlEditor
 {
     partial class CreatureEditForm
     {
@@ -64,6 +64,7 @@
             this.grpAttacks = new System.Windows.Forms.GroupBox();
             this.cboAttackTableName = new System.Windows.Forms.ComboBox();
             this.tabLevelResist = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.grpResist = new System.Windows.Forms.GroupBox();
             this.cboResistConcept = new System.Windows.Forms.ComboBox();
             this.lblResistConcept = new System.Windows.Forms.Label();
@@ -94,6 +95,7 @@
             this.lblDefensiveBonus = new System.Windows.Forms.Label();
             this.numDefensiveBonus = new System.Windows.Forms.NumericUpDown();
             this.grpDefMod = new System.Windows.Forms.GroupBox();
+            this.btnRemoveDefensiveModification = new System.Windows.Forms.Button();
             this.lblDefModConcept = new System.Windows.Forms.Label();
             this.txtDefModConcept = new System.Windows.Forms.TextBox();
             this.lblDefModBonus = new System.Windows.Forms.Label();
@@ -101,8 +103,7 @@
             this.btnAddDefensiveModification = new System.Windows.Forms.Button();
             this.lstDefensiveModifications = new System.Windows.Forms.ListBox();
             this.txtSplash = new System.Windows.Forms.TextBox();
-            this.btnRemoveDefensiveModification = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numAttackBonus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numAttackSizeAdj)).BeginInit();
             this.tabSkills.SuspendLayout();
@@ -112,6 +113,7 @@
             this.tabCombat.SuspendLayout();
             this.grpAttacks.SuspendLayout();
             this.tabLevelResist.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.grpResist.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numResistBonus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numBaseHits)).BeginInit();
@@ -125,7 +127,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numDefensiveBonus)).BeginInit();
             this.grpDefMod.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDefModBonus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // mainMenu1
@@ -165,6 +166,7 @@
             // 
             this.menuExit.Index = 4;
             this.menuExit.Text = "Exit";
+            this.menuExit.Click += new System.EventHandler(this.menuExit_Click);
             // 
             // tabControl1
             // 
@@ -199,6 +201,7 @@
             this.txtAttackName.Name = "txtAttackName";
             this.txtAttackName.Size = new System.Drawing.Size(178, 27);
             this.txtAttackName.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.txtAttackName, "special name of weapon");
             // 
             // lblAttackBonus
             // 
@@ -278,14 +281,14 @@
             this.lstAttacks.ItemHeight = 20;
             this.lstAttacks.Location = new System.Drawing.Point(10, 90);
             this.lstAttacks.Name = "lstAttacks";
-            this.lstAttacks.Size = new System.Drawing.Size(585, 164);
+            this.lstAttacks.Size = new System.Drawing.Size(585, 124);
             this.lstAttacks.TabIndex = 9;
             this.lstAttacks.SelectedIndexChanged += new System.EventHandler(this.lstAttacks_SelectedIndexChanged);
             // 
             // btnRemoveAttack
             // 
             this.btnRemoveAttack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveAttack.Location = new System.Drawing.Point(521, 270);
+            this.btnRemoveAttack.Location = new System.Drawing.Point(521, 249);
             this.btnRemoveAttack.Name = "btnRemoveAttack";
             this.btnRemoveAttack.Size = new System.Drawing.Size(92, 37);
             this.btnRemoveAttack.TabIndex = 10;
@@ -301,7 +304,7 @@
             this.tabSkills.Location = new System.Drawing.Point(4, 29);
             this.tabSkills.Name = "tabSkills";
             this.tabSkills.Padding = new System.Windows.Forms.Padding(10);
-            this.tabSkills.Size = new System.Drawing.Size(648, 366);
+            this.tabSkills.Size = new System.Drawing.Size(648, 345);
             this.tabSkills.TabIndex = 3;
             this.tabSkills.Text = "Skills";
             // 
@@ -322,7 +325,7 @@
             this.grpSkills.Controls.Add(this.btnRemoveSkill);
             this.grpSkills.Location = new System.Drawing.Point(10, 10);
             this.grpSkills.Name = "grpSkills";
-            this.grpSkills.Size = new System.Drawing.Size(605, 343);
+            this.grpSkills.Size = new System.Drawing.Size(588, 343);
             this.grpSkills.TabIndex = 0;
             this.grpSkills.TabStop = false;
             this.grpSkills.Text = "Maneuver Skills";
@@ -342,6 +345,7 @@
             this.txtSkillName.Name = "txtSkillName";
             this.txtSkillName.Size = new System.Drawing.Size(166, 27);
             this.txtSkillName.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.txtSkillName, "freeform entry");
             // 
             // lblSkillTableName
             // 
@@ -358,6 +362,7 @@
             this.txtSkillTableName.Name = "txtSkillTableName";
             this.txtSkillTableName.Size = new System.Drawing.Size(171, 27);
             this.txtSkillTableName.TabIndex = 3;
+            this.toolTip1.SetToolTip(this.txtSkillTableName, "freeform entry for now");
             // 
             // lblSkillRanks
             // 
@@ -446,7 +451,7 @@
             this.tabCombat.Location = new System.Drawing.Point(4, 29);
             this.tabCombat.Name = "tabCombat";
             this.tabCombat.Padding = new System.Windows.Forms.Padding(10);
-            this.tabCombat.Size = new System.Drawing.Size(648, 366);
+            this.tabCombat.Size = new System.Drawing.Size(648, 345);
             this.tabCombat.TabIndex = 2;
             this.tabCombat.Text = "Combat";
             this.tabCombat.Enter += new System.EventHandler(this.tabCombat_Enter);
@@ -469,7 +474,7 @@
             this.grpAttacks.Controls.Add(this.btnRemoveAttack);
             this.grpAttacks.Location = new System.Drawing.Point(10, 15);
             this.grpAttacks.Name = "grpAttacks";
-            this.grpAttacks.Size = new System.Drawing.Size(624, 326);
+            this.grpAttacks.Size = new System.Drawing.Size(624, 305);
             this.grpAttacks.TabIndex = 0;
             this.grpAttacks.TabStop = false;
             this.grpAttacks.Text = "Attacks";
@@ -482,6 +487,7 @@
             this.cboAttackTableName.Name = "cboAttackTableName";
             this.cboAttackTableName.Size = new System.Drawing.Size(243, 28);
             this.cboAttackTableName.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.cboAttackTableName, "select from list of attack tables ( JSON file )\r\ncan be free text also");
             this.cboAttackTableName.ValueMember = "WeapName";
             this.cboAttackTableName.SelectedIndexChanged += new System.EventHandler(this.cboAttackTableName_SelectedIndexChanged);
             // 
@@ -500,11 +506,23 @@
             this.tabLevelResist.Controls.Add(this.numAttackQuickness);
             this.tabLevelResist.Location = new System.Drawing.Point(4, 29);
             this.tabLevelResist.Name = "tabLevelResist";
-            this.tabLevelResist.Size = new System.Drawing.Size(648, 366);
+            this.tabLevelResist.Size = new System.Drawing.Size(648, 345);
             this.tabLevelResist.TabIndex = 1;
             this.tabLevelResist.Text = "Level & Character";
             this.tabLevelResist.Click += new System.EventHandler(this.tabLevelCharacter_Click);
             this.tabLevelResist.Enter += new System.EventHandler(this.tabLevelCharacter_Enter);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::CreatureXmlEditor.Properties.Resources.random_numbers;
+            this.pictureBox1.InitialImage = global::CreatureXmlEditor.Properties.Resources.img_rnd;
+            this.pictureBox1.Location = new System.Drawing.Point(222, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(28, 24);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 14;
+            this.pictureBox1.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox1, "Randomize level based on RMCo2");
             // 
             // grpResist
             // 
@@ -520,7 +538,7 @@
             this.grpResist.Controls.Add(this.btnRemoveResistanceRollBonus);
             this.grpResist.Location = new System.Drawing.Point(11, 109);
             this.grpResist.Name = "grpResist";
-            this.grpResist.Size = new System.Drawing.Size(604, 249);
+            this.grpResist.Size = new System.Drawing.Size(604, 228);
             this.grpResist.TabIndex = 12;
             this.grpResist.TabStop = false;
             this.grpResist.Text = "Resistance Roll Bonuses";
@@ -598,14 +616,14 @@
             this.lstResistanceRollBonuses.ItemHeight = 20;
             this.lstResistanceRollBonuses.Location = new System.Drawing.Point(10, 50);
             this.lstResistanceRollBonuses.Name = "lstResistanceRollBonuses";
-            this.lstResistanceRollBonuses.Size = new System.Drawing.Size(557, 144);
+            this.lstResistanceRollBonuses.Size = new System.Drawing.Size(557, 104);
             this.lstResistanceRollBonuses.TabIndex = 5;
             this.lstResistanceRollBonuses.SelectedIndexChanged += new System.EventHandler(this.lstResistanceRollBonuses_SelectedIndexChanged);
             // 
             // btnRemoveResistanceRollBonus
             // 
             this.btnRemoveResistanceRollBonus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveResistanceRollBonus.Location = new System.Drawing.Point(457, 208);
+            this.btnRemoveResistanceRollBonus.Location = new System.Drawing.Point(457, 187);
             this.btnRemoveResistanceRollBonus.Name = "btnRemoveResistanceRollBonus";
             this.btnRemoveResistanceRollBonus.Size = new System.Drawing.Size(110, 35);
             this.btnRemoveResistanceRollBonus.TabIndex = 6;
@@ -721,7 +739,7 @@
             this.tabBasicInfo.Location = new System.Drawing.Point(4, 29);
             this.tabBasicInfo.Name = "tabBasicInfo";
             this.tabBasicInfo.Padding = new System.Windows.Forms.Padding(10);
-            this.tabBasicInfo.Size = new System.Drawing.Size(648, 366);
+            this.tabBasicInfo.Size = new System.Drawing.Size(648, 345);
             this.tabBasicInfo.TabIndex = 0;
             this.tabBasicInfo.Text = "Basic Info";
             // 
@@ -795,7 +813,7 @@
             this.tabControl.MinimumSize = new System.Drawing.Size(10, 110);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(656, 399);
+            this.tabControl.Size = new System.Drawing.Size(656, 378);
             this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl.TabIndex = 0;
             this.tabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl_DrawItem);
@@ -811,7 +829,7 @@
             this.tabDefence.Location = new System.Drawing.Point(4, 29);
             this.tabDefence.Name = "tabDefence";
             this.tabDefence.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDefence.Size = new System.Drawing.Size(648, 366);
+            this.tabDefence.Size = new System.Drawing.Size(648, 345);
             this.tabDefence.TabIndex = 4;
             this.tabDefence.Text = "Defence";
             // 
@@ -893,10 +911,20 @@
             this.grpDefMod.Controls.Add(this.lstDefensiveModifications);
             this.grpDefMod.Location = new System.Drawing.Point(8, 84);
             this.grpDefMod.Name = "grpDefMod";
-            this.grpDefMod.Size = new System.Drawing.Size(606, 258);
+            this.grpDefMod.Size = new System.Drawing.Size(606, 237);
             this.grpDefMod.TabIndex = 1;
             this.grpDefMod.TabStop = false;
             this.grpDefMod.Text = "Defensive Modifications";
+            // 
+            // btnRemoveDefensiveModification
+            // 
+            this.btnRemoveDefensiveModification.Location = new System.Drawing.Point(444, 209);
+            this.btnRemoveDefensiveModification.Name = "btnRemoveDefensiveModification";
+            this.btnRemoveDefensiveModification.Size = new System.Drawing.Size(98, 43);
+            this.btnRemoveDefensiveModification.TabIndex = 7;
+            this.btnRemoveDefensiveModification.Text = "Remove";
+            this.btnRemoveDefensiveModification.UseVisualStyleBackColor = true;
+            this.btnRemoveDefensiveModification.Click += new System.EventHandler(this.BtnRemoveDefensiveModification_Click);
             // 
             // lblDefModConcept
             // 
@@ -913,6 +941,7 @@
             this.txtDefModConcept.Name = "txtDefModConcept";
             this.txtDefModConcept.Size = new System.Drawing.Size(180, 27);
             this.txtDefModConcept.TabIndex = 1;
+            this.toolTip1.SetToolTip(this.txtDefModConcept, "free text entry. eg Normal Shield. Helm");
             // 
             // lblDefModBonus
             // 
@@ -954,7 +983,7 @@
             this.btnAddDefensiveModification.TabIndex = 4;
             this.btnAddDefensiveModification.Text = "Add";
             this.btnAddDefensiveModification.UseVisualStyleBackColor = true;
-            this.btnAddDefensiveModification.Click += new System.EventHandler(this.BtnAddDefensiveModification_Click);
+            this.btnAddDefensiveModification.Click += new System.EventHandler(this.btnAddDefensiveModification_Click);
             // 
             // lstDefensiveModifications
             // 
@@ -977,40 +1006,19 @@
             this.txtSplash.Multiline = true;
             this.txtSplash.Name = "txtSplash";
             this.txtSplash.ReadOnly = true;
-            this.txtSplash.Size = new System.Drawing.Size(429, 283);
+            this.txtSplash.Size = new System.Drawing.Size(429, 262);
             this.txtSplash.TabIndex = 2;
             this.txtSplash.Text = resources.GetString("txtSplash.Text");
             this.txtSplash.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtSplash.TextChanged += new System.EventHandler(this.txtSplash_TextChanged);
-            // 
-            // btnRemoveDefensiveModification
-            // 
-            this.btnRemoveDefensiveModification.Location = new System.Drawing.Point(444, 209);
-            this.btnRemoveDefensiveModification.Name = "btnRemoveDefensiveModification";
-            this.btnRemoveDefensiveModification.Size = new System.Drawing.Size(98, 43);
-            this.btnRemoveDefensiveModification.TabIndex = 7;
-            this.btnRemoveDefensiveModification.Text = "Remove";
-            this.btnRemoveDefensiveModification.UseVisualStyleBackColor = true;
-            this.btnRemoveDefensiveModification.Click += new System.EventHandler(this.BtnRemoveDefensiveModification_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::CreatureXmlEditor.Properties.Resources.img_rnd;
-            this.pictureBox1.InitialImage = global::CreatureXmlEditor.Properties.Resources.img_rnd;
-            this.pictureBox1.Location = new System.Drawing.Point(222, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(28, 24);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 14;
-            this.pictureBox1.TabStop = false;
             // 
             // CreatureEditForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(656, 399);
+            this.ClientSize = new System.Drawing.Size(656, 378);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.txtSplash);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Menu = this.mainMenu1;
             this.Name = "CreatureEditForm";
             this.Text = "CreatureEditForm";
@@ -1026,6 +1034,7 @@
             this.grpAttacks.PerformLayout();
             this.tabLevelResist.ResumeLayout(false);
             this.tabLevelResist.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.grpResist.ResumeLayout(false);
             this.grpResist.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numResistBonus)).EndInit();
@@ -1043,23 +1052,13 @@
             this.grpDefMod.ResumeLayout(false);
             this.grpDefMod.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDefModBonus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        // Menu Strip Controls
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-
+        
         private System.Windows.Forms.MainMenu mainMenu1;
         private System.Windows.Forms.MenuItem menuLoad;
         private System.Windows.Forms.MenuItem menuSave;
@@ -1137,5 +1136,6 @@
         private System.Windows.Forms.TextBox txtSplash;
         private System.Windows.Forms.Button btnRemoveDefensiveModification;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

@@ -409,7 +409,7 @@ namespace CreatureXmlEditor
             this.btnAddDefensiveModification.TabIndex = 4;
             this.btnAddDefensiveModification.Text = "Add";
             this.btnAddDefensiveModification.UseVisualStyleBackColor = true;
-            this.btnAddDefensiveModification.Click += new System.EventHandler(this.BtnAddDefensiveModification_Click);
+            this.btnAddDefensiveModification.Click += new System.EventHandler(this.btnAddDefensiveModification_Click);
             grpDefMod.Controls.Add(this.btnAddDefensiveModification);
 
             this.lstDefensiveModifications.FormattingEnabled = true;
