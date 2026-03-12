@@ -514,8 +514,7 @@ namespace CreatureXmlEditor
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::CreatureXmlEditor.Properties.Resources.random_numbers;
-            this.pictureBox1.InitialImage = global::CreatureXmlEditor.Properties.Resources.img_rnd;
+            this.pictureBox1.Image = global::ERA_creature.Properties.Resources.random_numbers;
             this.pictureBox1.Location = new System.Drawing.Point(222, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(28, 24);

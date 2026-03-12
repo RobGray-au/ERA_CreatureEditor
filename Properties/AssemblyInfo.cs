@@ -5,11 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CreatureBuilder")]
+
 [assembly: AssemblyDescription("Builder / Editor for bespoke creatures for ERA")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("aRRG! Solutions")]
-[assembly: AssemblyProduct("ERA_creature")]
 [assembly: AssemblyCopyright("Copyright ©  2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
