@@ -741,6 +741,8 @@ namespace CreatureXmlEditor
             txtCreatureName.TabIndex = 1;
             txtCreatureName.WordWrap = false;
             txtCreatureName.TextChanged += TextChanged_Handler;
+            txtCreatureName.Enter += txtCreatureName_Enter;
+            txtCreatureName.KeyDown += txtCreatureName_KeyDown;
             // 
             // txtCategory
             // 

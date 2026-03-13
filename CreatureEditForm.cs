@@ -70,6 +70,23 @@ namespace CreatureXmlEditor
             ;
         }
 
+        private void txtCreatureName_KeyDown(object sender, KeyEventArgs e)
+        {
+            CheckClearCreatureName();
+        }
+        private void txtCreatureName_Enter(object sender, EventArgs e)
+        {
+            CheckClearCreatureName();
+        }
+
+        private void CheckClearCreatureName()
+        {
+            if (txtCreatureName.Text == "New Creature")
+            {
+                txtCreatureName.Clear();
+            }
+        }
+
         // Source - https://stackoverflow.com/a/2335407
         // Posted by vts123, modified by community. See post 'Timeline' for change history
         // Retrieved 2026-03-06, License - CC BY-SA 4.0
@@ -624,7 +641,7 @@ namespace CreatureXmlEditor
 
             creature = new Creature();
             currentFilePath = "";
-            //LoadCreatureToForm();
+            LoadCreatureToForm();
 
             txtSplash.Visible = false;
             tabControl.Visible = true;
@@ -666,11 +683,12 @@ namespace CreatureXmlEditor
                 return;
             }
 
+            string tmpName = txtCreatureName.Text.Trim();
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "Creature XML Files (*.creature.xml)|*.creature.xml|XML Files (*.xml)|*.xml",
                 Title = "Save Creature File",
-                FileName = creature.Name.Replace(" ", "_") + ".creature.xml"
+                FileName = tmpName.Replace(" ", "_") + ".creature.xml"
             };
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -708,6 +726,8 @@ namespace CreatureXmlEditor
 
 
         #endregion
+
+
 
 
     }

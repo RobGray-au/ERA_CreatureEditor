@@ -6,11 +6,13 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyVersion>1.0.9568.9512</AssemblyVersion>
-    <FileVersion>1.0.9568.9512</FileVersion>
+    <AssemblyVersion>1.0.9568.23895</AssemblyVersion>
+    <FileVersion>1.0.9568.23895</FileVersion>
     <PackageIcon>monster editing app1.png</PackageIcon>
     <ApplicationIcon>Resources\ERACreature.ico</ApplicationIcon>
     <StartupObject>ERA_Core.Program</StartupObject>
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>C:\Users\robbe\Dropbox\devel\DotNet\RRG_code.pfx</AssemblyOriginatorKeyFile>
 </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
