@@ -1,0 +1,482 @@
+	[
+        {
+            "WeaponName": "Armored Fist",
+            "TableName": "Armored Fist",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Bash Huge",
+            "TableName": "Bash Huge",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Bash Large",
+            "TableName": "Bash Large",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Bash Medium",
+            "TableName": "Bash Medium",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Bash Small",
+            "TableName": "Bash Small",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Battle Axe",
+            "TableName": "Battle Axe",
+            "Class": "Axe Great",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Beak Huge",
+            "TableName": "Beak Huge",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Beak Large",
+            "TableName": "Beak Large",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Beak Medium",
+            "TableName": "Beak Medium",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Beak Small",
+            "TableName": "Beak Small",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Bite Large",
+            "TableName": "Bite Large",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Bite Large",
+            "TableName": "Bite Large",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Bite Small",
+            "TableName": "Bite Small",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Bite Tiny",
+            "TableName": "Bite Tiny",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Bola",
+            "TableName": "Bola",
+            "Class": "Thrown",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Brawling Huge",
+            "TableName": "Brawling Huge",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Brawling Large",
+            "TableName": "Brawling Large",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Brawling Medium",
+            "TableName": "Brawling Medium",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Brawling Small",
+            "TableName": "Brawling Small",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Broadsword",
+            "TableName": "Broadsword",
+            "Class": "Blade Long",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Claw Small",
+            "TableName": "Claw Small",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Claw Medium",
+            "TableName": "Claw Medium",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Claw Large",
+            "TableName": "Claw Large",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Club",
+            "TableName": "Club",
+            "Class": "Club",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Cold Ball",
+            "TableName": "Cold Ball",
+            "Class": "Magic",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Composite Bow",
+            "TableName": "Composite Bow",
+            "Class": "Bow",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Cudgel",
+            "TableName": "Cudgel",
+            "Class": "Club",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Cutlass",
+            "TableName": "Cutlass",
+            "Class": "Blade",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Dagger",
+            "TableName": "Dagger",
+            "Class": "Blade Short",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Darts",
+            "TableName": "Darts",
+            "Class": "Thrown",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Falchion",
+            "TableName": "Falchion",
+            "Class": "Blade",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Fire Ball",
+            "TableName": "Fire Ball",
+            "Class": "Magic",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Fire Bolt",
+            "TableName": "Fire Bolt",
+            "Class": "Magic",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Flail",
+            "TableName": "Flail",
+            "Class": "Chail",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Grapple Huge",
+            "TableName": "Grapple Huge",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Grapple Large",
+            "TableName": "Grapple Large",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Grapple Small",
+            "TableName": "Grapple Small",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "HandAxe",
+            "TableName": "HandAxe",
+            "Class": "Axe Short",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Horn",
+            "TableName": "Horn",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Heavy Crossbow",
+            "TableName": "Heavy Crossbow",
+            "Class": "Box",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Ice Bolt",
+            "TableName": "Ice Bolt",
+            "Class": "Magic",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Javelin",
+            "TableName": "Javelin",
+            "Class": "PoleArm",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Lance",
+            "TableName": "Lance",
+            "Class": "PoleArm",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Light Crossbow",
+            "TableName": "Light Crossbow",
+            "Class": "Bow",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Lightning Bolt",
+            "TableName": "Lightning Bolt",
+            "Class": "Magic",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Long Bow",
+            "TableName": "Long Bow",
+            "Class": "Bow",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Long Sword",
+            "TableName": "Long Sword",
+            "Class": "Blade Long",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Mace",
+            "TableName": "Mace",
+            "Class": "Axe Short",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Main Gauche",
+            "TableName": "Main Gauche",
+            "Class": "Blade",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Morning Star",
+            "TableName": "Morning Star",
+            "Class": "Chain",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Polearm",
+            "TableName": "Polearm",
+            "Class": "PoleArm",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "QuarterStaff",
+            "TableName": "QuarterStaff",
+            "Class": "Club",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Rapier",
+            "TableName": "Rapier",
+            "Class": "Blade",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Scimitar",
+            "TableName": "Scimitar",
+            "Class": "Blade",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Shock Bolt",
+            "TableName": "Shock Bolt",
+            "Class": "Magic",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Short Bow",
+            "TableName": "Short Bow",
+            "Class": "Bow",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Short Sword",
+            "TableName": "Short Sword",
+            "Class": "Blade Short",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Sling",
+            "TableName": "Sling",
+            "Class": "Thrown",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Spear",
+            "TableName": "Spear",
+            "Class": "PoleArm",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Stinger Medium",
+            "TableName": "Stinger Medium",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Stinger Large",
+            "TableName": "Stinger Large",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Stinger Small",
+            "TableName": "Stinger Small",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Two Handed Sword",
+            "TableName": "Two Handed Sword",
+            "Class": "Blade Great",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Trample Medium",
+            "TableName": "Trample Medium",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "TrampleSmall",
+            "TableName": "TrampleSmall",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "War Mattock",
+            "TableName": "War Mattock",
+            "Class": "Axe Long",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "War Hammer",
+            "TableName": "War Hammer",
+            "Class": "Axe Long",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Whip",
+            "TableName": "Whip",
+            "Class": "Thrown",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Water Bolt",
+            "TableName": "Water Bolt",
+            "Class": "Magic",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Tiny Initial",
+            "TableName": "Tiny Initial",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Tiny Next 1",
+            "TableName": "Tiny Next 1",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Tiny Next 2",
+            "TableName": "Tiny Next 2",
+            "Class": "Beast",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Strikes 1",
+            "TableName": "Strikes 1",
+            "Class": "Martial",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Strikes 2",
+            "TableName": "Strikes 2",
+            "Class": "Martial",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Strikes 3",
+            "TableName": "Strikes 3",
+            "Class": "Martial",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Strikes 4",
+            "TableName": "Strikes 4",
+            "Class": "Martial",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Sweeps 1",
+            "TableName": "Sweeps 1",
+            "Class": "Martial",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Sweeps 2",
+            "TableName": "Sweeps 2",
+            "Class": "Martial",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Sweeps 3",
+            "TableName": "Sweeps 3",
+            "Class": "Martial",
+            "Description": "basic"
+        },
+        {
+            "WeaponName": "Sweeps 4",
+            "TableName": "Sweeps 4",
+            "Class": "Martial",
+            "Description": "basic"
+        }
+    ]
