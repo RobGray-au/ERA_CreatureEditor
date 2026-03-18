@@ -14,8 +14,6 @@ namespace ERA_CreatureEdit
     public partial class ConfigEditor : Form
     {
         private XmlDocument xmlDoc;
-        private string configFilePath;
-        private string creaturePath;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public string ConfigFilePath { get; set; }
@@ -23,6 +21,8 @@ namespace ERA_CreatureEdit
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public  string CreaturePath { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        public bool AvatarGreyscale { get; set; }
 
         public ConfigEditor()
         {

@@ -24,6 +24,9 @@ namespace ERA_CreatureEdit.Models
         [XmlElement("ManeuverSkills")]
         public ManeuverSkills ManeuverSkills { get; set; }
 
+        [XmlElement("SpellLists")]
+        public SpellLists SpellLists { get; set; }
+
         [XmlElement("Description")]
         public string Description { get; set; }
 
@@ -77,6 +80,7 @@ namespace ERA_CreatureEdit.Models
             MovementStatistics = new MovementStatistics();
             CombatStatistics = new CombatStatistics();
             ManeuverSkills = new ManeuverSkills();
+            SpellLists = new SpellLists();
             //set some nominal base values for the creature
             Description = "";
             AvatarTxt = "";
@@ -95,6 +99,16 @@ namespace ERA_CreatureEdit.Models
         public ManeuverSkills()
         {
             Skills = new List<Skill>();
+        }
+    }
+    public class SpellLists
+    {
+        [XmlElement("Skill")]
+        public List<Skill> Spells { get; set; }
+
+        public SpellLists()
+        {
+            Spells = new List<Skill>();
         }
     }
 }

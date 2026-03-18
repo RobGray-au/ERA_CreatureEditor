@@ -38,6 +38,7 @@ namespace ERA_CreatureEdit
             toolStripMenuItemSave = new ToolStripMenuItem();
             toolStripMenuItemSaveAs = new ToolStripMenuItem();
             toolStripMenuItemQuit = new ToolStripMenuItem();
+            settingsToolStripMenuItem = new ToolStripMenuItem();
             tabControl1 = new TabControl();
             lblAttackName = new Label();
             lblAttackTableName = new Label();
@@ -107,9 +108,23 @@ namespace ERA_CreatureEdit
             numDefModBonus = new NumericUpDown();
             btnAddDefensiveModification = new Button();
             lstDefensiveModifications = new ListBox();
+            tabSpells = new TabPage();
+            groupBox1 = new GroupBox();
+            label5 = new Label();
+            cboSpellListType = new ComboBox();
+            listBoxSpellPicks = new ListBox();
+            label1 = new Label();
+            tbSpellListName = new TextBox();
+            label2 = new Label();
+            label3 = new Label();
+            numericUpDown1 = new NumericUpDown();
+            label4 = new Label();
+            numericUpDown2 = new NumericUpDown();
+            button1 = new Button();
+            listBoxSpells = new ListBox();
+            button2 = new Button();
             txtSplash = new TextBox();
             toolTip1 = new ToolTip(components);
-            settingsToolStripMenuItem = new ToolStripMenuItem();
             mainMenu1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numAttackBonus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numAttackSizeAdj).BeginInit();
@@ -135,6 +150,10 @@ namespace ERA_CreatureEdit
             ((System.ComponentModel.ISupportInitialize)numDefensiveBonus).BeginInit();
             grpDefMod.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numDefModBonus).BeginInit();
+            tabSpells.SuspendLayout();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             SuspendLayout();
             // 
             // mainMenu1
@@ -180,6 +199,15 @@ namespace ERA_CreatureEdit
             toolStripMenuItemQuit.Size = new Size(37, 20);
             toolStripMenuItemQuit.Text = "Exit";
             toolStripMenuItemQuit.Click += menuExit_Click;
+            // 
+            // settingsToolStripMenuItem
+            // 
+            settingsToolStripMenuItem.Alignment = ToolStripItemAlignment.Right;
+            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            settingsToolStripMenuItem.Size = new Size(61, 20);
+            settingsToolStripMenuItem.Text = "Settings";
+            settingsToolStripMenuItem.TextAlign = ContentAlignment.MiddleRight;
+            settingsToolStripMenuItem.Click += settingsToolStripMenuItem_Click;
             // 
             // tabControl1
             // 
@@ -841,7 +869,7 @@ namespace ERA_CreatureEdit
             tabControl.Controls.Add(tabCombat);
             tabControl.Controls.Add(tabDefence);
             tabControl.Controls.Add(tabSkills);
-            tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
+            tabControl.Controls.Add(tabSpells);
             tabControl.Font = new Font("Book Antiqua", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             tabControl.HotTrack = true;
             tabControl.Location = new Point(0, 24);
@@ -1006,6 +1034,177 @@ namespace ERA_CreatureEdit
             lstDefensiveModifications.TabIndex = 5;
             lstDefensiveModifications.SelectedIndexChanged += lstDefensiveModifications_SelectedIndexChanged;
             // 
+            // tabSpells
+            // 
+            tabSpells.BackColor = Color.LemonChiffon;
+            tabSpells.Controls.Add(groupBox1);
+            tabSpells.Location = new Point(4, 29);
+            tabSpells.Name = "tabSpells";
+            tabSpells.Padding = new Padding(3);
+            tabSpells.Size = new Size(757, 379);
+            tabSpells.TabIndex = 5;
+            tabSpells.Text = "Spells";
+            tabSpells.Enter += tabSpells_Enter;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(label5);
+            groupBox1.Controls.Add(cboSpellListType);
+            groupBox1.Controls.Add(listBoxSpellPicks);
+            groupBox1.Controls.Add(label1);
+            groupBox1.Controls.Add(tbSpellListName);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(numericUpDown1);
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(numericUpDown2);
+            groupBox1.Controls.Add(button1);
+            groupBox1.Controls.Add(listBoxSpells);
+            groupBox1.Controls.Add(button2);
+            groupBox1.Location = new Point(27, 5);
+            groupBox1.Margin = new Padding(4, 3, 4, 3);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new Padding(4, 3, 4, 3);
+            groupBox1.Size = new Size(702, 368);
+            groupBox1.TabIndex = 1;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Spell Lists known";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(18, 64);
+            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(44, 20);
+            label5.TabIndex = 13;
+            label5.Text = "Pick:";
+            toolTip1.SetToolTip(label5, "Max level known");
+            // 
+            // cboSpellListType
+            // 
+            cboSpellListType.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cboSpellListType.FormattingEnabled = true;
+            cboSpellListType.Items.AddRange(new object[] { "Open Same-Realm", "Closed Same-Realm", "Base Same-Realm", "Open Other Realm", "Close Other Realm", "Base Other Realm", "Evil Base" });
+            cboSpellListType.Location = new Point(444, 23);
+            cboSpellListType.Name = "cboSpellListType";
+            cboSpellListType.Size = new Size(222, 28);
+            cboSpellListType.TabIndex = 12;
+            toolTip1.SetToolTip(cboSpellListType, "select from std types or enter description");
+            // 
+            // listBoxSpellPicks
+            // 
+            listBoxSpellPicks.DisplayMember = "Text";
+            listBoxSpellPicks.FormattingEnabled = true;
+            listBoxSpellPicks.Items.AddRange(new object[] { "A", "B", "C", "D", "E" });
+            listBoxSpellPicks.Location = new Point(69, 60);
+            listBoxSpellPicks.Name = "listBoxSpellPicks";
+            listBoxSpellPicks.Size = new Size(41, 24);
+            listBoxSpellPicks.TabIndex = 11;
+            toolTip1.SetToolTip(listBoxSpellPicks, "Pick type, replaces max level");
+            listBoxSpellPicks.ValueMember = "Value";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(13, 29);
+            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(87, 20);
+            label1.TabIndex = 0;
+            label1.Text = "List Name:";
+            // 
+            // tbSpellListName
+            // 
+            tbSpellListName.Location = new Point(108, 25);
+            tbSpellListName.Margin = new Padding(4, 3, 4, 3);
+            tbSpellListName.Name = "tbSpellListName";
+            tbSpellListName.Size = new Size(231, 27);
+            tbSpellListName.TabIndex = 1;
+            toolTip1.SetToolTip(tbSpellListName, "must be exactly as per Spell Law to be recognised\r\n and actioned by Adventure Module");
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(385, 25);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(53, 20);
+            label2.TabIndex = 2;
+            label2.Text = "Table:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(128, 65);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(83, 20);
+            label3.TabIndex = 4;
+            label3.Text = "Max level:";
+            toolTip1.SetToolTip(label3, "Max level known");
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Location = new Point(219, 61);
+            numericUpDown1.Margin = new Padding(4, 3, 4, 3);
+            numericUpDown1.Maximum = new decimal(new int[] { 25, 0, 0, 0 });
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(55, 27);
+            numericUpDown1.TabIndex = 5;
+            numericUpDown1.TextAlign = HorizontalAlignment.Center;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(329, 68);
+            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(58, 20);
+            label4.TabIndex = 6;
+            label4.Text = "Bonus:";
+            // 
+            // numericUpDown2
+            // 
+            numericUpDown2.Location = new Point(402, 63);
+            numericUpDown2.Margin = new Padding(4, 3, 4, 3);
+            numericUpDown2.Maximum = new decimal(new int[] { 250, 0, 0, 0 });
+            numericUpDown2.Minimum = new decimal(new int[] { 20, 0, 0, int.MinValue });
+            numericUpDown2.Name = "numericUpDown2";
+            numericUpDown2.Size = new Size(117, 27);
+            numericUpDown2.TabIndex = 7;
+            numericUpDown2.TextAlign = HorizontalAlignment.Center;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(541, 59);
+            button1.Margin = new Padding(4, 3, 4, 3);
+            button1.Name = "button1";
+            button1.Size = new Size(88, 33);
+            button1.TabIndex = 8;
+            button1.Text = "Add";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // listBoxSpells
+            // 
+            listBoxSpells.FormattingEnabled = true;
+            listBoxSpells.Location = new Point(16, 99);
+            listBoxSpells.Margin = new Padding(4, 3, 4, 3);
+            listBoxSpells.Name = "listBoxSpells";
+            listBoxSpells.Size = new Size(638, 204);
+            listBoxSpells.TabIndex = 9;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(541, 320);
+            button2.Margin = new Padding(4, 3, 4, 3);
+            button2.Name = "button2";
+            button2.Size = new Size(104, 39);
+            button2.TabIndex = 10;
+            button2.Text = "Remove";
+            button2.UseVisualStyleBackColor = true;
+            // 
             // txtSplash
             // 
             txtSplash.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -1020,15 +1219,6 @@ namespace ERA_CreatureEdit
             txtSplash.TabIndex = 2;
             txtSplash.Text = resources.GetString("txtSplash.Text");
             txtSplash.TextAlign = HorizontalAlignment.Center;
-            // 
-            // settingsToolStripMenuItem
-            // 
-            settingsToolStripMenuItem.Alignment = ToolStripItemAlignment.Right;
-            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            settingsToolStripMenuItem.Size = new Size(61, 20);
-            settingsToolStripMenuItem.Text = "Settings";
-            settingsToolStripMenuItem.TextAlign = ContentAlignment.MiddleRight;
-            settingsToolStripMenuItem.Click += settingsToolStripMenuItem_Click;
             // 
             // CreatureEditForm
             // 
@@ -1076,6 +1266,11 @@ namespace ERA_CreatureEdit
             grpDefMod.ResumeLayout(false);
             grpDefMod.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numDefModBonus).EndInit();
+            tabSpells.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -1166,5 +1361,20 @@ namespace ERA_CreatureEdit
         private CheckBox checkBoxGreyScale;
         private PictureBox pictureBoxAvatar;
         private ToolStripMenuItem settingsToolStripMenuItem;
+        private TabPage tabSpells;
+        private GroupBox groupBox1;
+        private Label label1;
+        private TextBox tbSpellListName;
+        private Label label2;
+        private Label label3;
+        private NumericUpDown numericUpDown1;
+        private Label label4;
+        private NumericUpDown numericUpDown2;
+        private Button button1;
+        private ListBox listBoxSpells;
+        private Button button2;
+        private ListBox listBoxSpellPicks;
+        private ComboBox cboSpellListType;
+        private Label label5;
     }
 }

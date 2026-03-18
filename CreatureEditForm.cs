@@ -29,7 +29,7 @@ namespace ERA_CreatureEdit
         public List<AttackType> AttackList = new();
 
         internal GetConfig.ConfigurationManager Config { get; private set; }
-        internal string CreatureFolderPath ="";
+        internal string CreatureFolderPath = "";
         internal bool useGreyscaleAvatar = true;
 
         public CreatureEditForm()
@@ -56,7 +56,7 @@ namespace ERA_CreatureEdit
         {
             CreatureFolderPath = Config.GetAppSetting("AppSettings", "ERA_CreatureFolder", Path.Combine(Directory.GetCurrentDirectory(), "Examples")); // "C:\Temp\Creatures");
             useGreyscaleAvatar = Config.GetAppSetting("AppSettings", "UseGreyscaleAvatar", true);
-                return true;
+            return true;
         }
 
         private void Form_FormClosing(object sender, FormClosingEventArgs e)
@@ -97,7 +97,7 @@ namespace ERA_CreatureEdit
                 {
                     txtSplash.Visible = false;
                     tabControl.Visible = true;
-                    checkBoxGreyScale.Checked= useGreyscaleAvatar;
+                    checkBoxGreyScale.Checked = useGreyscaleAvatar;
                 }
             }
             ;
@@ -688,7 +688,7 @@ namespace ERA_CreatureEdit
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Filter = "XML Files (*.xml)|*.xml|Creature Files (*.creature.xml)|*.creature.xml",
-                FilterIndex=1,
+                FilterIndex = 1,
                 Title = "Open Creature File",
                 InitialDirectory = string.IsNullOrEmpty(CreatureFolderPath) ? Directory.GetCurrentDirectory() : CreatureFolderPath,
                 RestoreDirectory = true
@@ -728,7 +728,7 @@ namespace ERA_CreatureEdit
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "Creature XML Files (*.creature.xml)|*.creature.xml|XML Files (*.xml)|*.xml",
-                FilterIndex=0,
+                FilterIndex = 0,
                 InitialDirectory = string.IsNullOrEmpty(CreatureFolderPath) ? Directory.GetCurrentDirectory() : CreatureFolderPath,
                 Title = "Save Creature File",
                 FileName = tmpName.Replace(" ", "_") + ".creature.xml"
@@ -770,7 +770,8 @@ namespace ERA_CreatureEdit
         {
             //show the App settings
             ConfigEditor configEditor = new ConfigEditor();
-            
+            configEditor.ShowDialog();
+
         }
 
         #endregion
@@ -816,6 +817,22 @@ namespace ERA_CreatureEdit
         #endregion
 
 
+
+
+        private void tabSpells_Enter(object sender, EventArgs e)
+        {
+            // Create a list of items
+            var items = new List<SpellPicks>
+            {
+                new SpellPicks { Portion = "A", Maxlevel = 5 },
+                new SpellPicks { Portion = "B", Maxlevel = 10 },
+                new SpellPicks { Portion = "C", Maxlevel = 10 },
+                new SpellPicks { Portion = "D", Maxlevel = 20 },
+                new SpellPicks { Portion = "E", Maxlevel = 30 }
+            };
+            listBoxSpellPicks.Items.Clear();
+            listBoxSpellPicks.Items.AddRange(items.ToArray());
+        }
 
 
     }
