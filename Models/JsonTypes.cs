@@ -1,4 +1,4 @@
-﻿namespace CreatureXmlEditor.Models
+﻿namespace ERA_CreatureEdit.Models
 {
 
     public class JsonModels

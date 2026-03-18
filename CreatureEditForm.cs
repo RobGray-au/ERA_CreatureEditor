@@ -1,9 +1,25 @@
-using CreatureXmlEditor.Models;
-using CreatureXmlEditor.Utilities;
+using ERA_CreatureEdit.Models;
+using ERA_CreatureEdit.Utilities;
+using ERA_CreatureEdit;
 using System.Data;
+using System.Drawing.Imaging;
+using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Configuration;
 
-namespace CreatureXmlEditor
+namespace ERA_CreatureEdit
 {
+    /// <summary>
+    /// Represents a Windows Form used for creating, editing, and managing creature data, including attributes,
+    /// resistances, attacks, and skills, within a graphical user interface.
+    /// </summary>
+    /// <remarks>The form provides functionality for loading and saving creature data to and from XML files,
+    /// as well as editing various creature properties through dedicated UI controls. It supports user prompts for
+    /// unsaved changes, custom drawing of UI elements, and integration with external resources such as resistance and
+    /// attack type definitions. The form is intended for use in desktop applications that require detailed creature
+    /// management, such as game editors or simulation tools.</remarks>
+    /// v1.0 - Initial implementation with basic creature properties, loading/saving functionality, and UI setup.
+    /// v1.1 - Added Avatar loading and saving.
+
     public partial class CreatureEditForm : Form
     {
         private Creature creature;
@@ -12,19 +28,35 @@ namespace CreatureXmlEditor
         public List<ResistanceType> ResistanceList = new();
         public List<AttackType> AttackList = new();
 
+        internal GetConfig.ConfigurationManager Config { get; private set; }
+        internal string CreatureFolderPath ="";
+        internal bool useGreyscaleAvatar = true;
+
         public CreatureEditForm()
         {
             InitializeComponent();
             LoadJSON();
             creature = new Creature();
 
+
+            Config = new GetConfig.ConfigurationManager(); //load basic & default configuration 
+
             Version? version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             DateTime buildDate = new DateTime(2000, 1, 1)
                                     .AddDays(version.Build).AddSeconds(version.Revision * 2 + 10 * 3600);
             string displayableVersion = $"{version} ({buildDate})";
 
+            LoadConfig();
+
             this.txtSplash.Text += string.Format("\n\r\n\r\n\rVer: {0}   Created by: RobG\n", displayableVersion);
             this.Shown += ShowForm;
+        }
+
+        internal bool LoadConfig()
+        {
+            CreatureFolderPath = Config.GetAppSetting("AppSettings", "ERA_CreatureFolder", Path.Combine(Directory.GetCurrentDirectory(), "Examples")); // "C:\Temp\Creatures");
+            useGreyscaleAvatar = Config.GetAppSetting("AppSettings", "UseGreyscaleAvatar", true);
+                return true;
         }
 
         private void Form_FormClosing(object sender, FormClosingEventArgs e)
@@ -65,6 +97,7 @@ namespace CreatureXmlEditor
                 {
                     txtSplash.Visible = false;
                     tabControl.Visible = true;
+                    checkBoxGreyScale.Checked= useGreyscaleAvatar;
                 }
             }
             ;
@@ -181,8 +214,9 @@ namespace CreatureXmlEditor
             LoadSkills();
 
             // Description
-            txtDescription.Text = creature.Description;
+            txtDescription.Text = creature.Description.Replace("\n", "\r\n");
 
+            pictureBoxAvatar.Image = creature.AvatarImage;
             isModified = false;
             UpdateTitle();
         }
@@ -279,6 +313,7 @@ namespace CreatureXmlEditor
 
             // Description
             creature.Description = txtDescription.Text;
+
         }
         #endregion
 
@@ -649,10 +684,14 @@ namespace CreatureXmlEditor
 
         private void menuLoad_Click(object sender, EventArgs e)
         {
+
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "XML Files (*.xml)|*.xml|Creature Files (*.creature.xml)|*.creature.xml|All Files (*.*)|*.*",
-                Title = "Open Creature File"
+                Filter = "XML Files (*.xml)|*.xml|Creature Files (*.creature.xml)|*.creature.xml",
+                FilterIndex=1,
+                Title = "Open Creature File",
+                InitialDirectory = string.IsNullOrEmpty(CreatureFolderPath) ? Directory.GetCurrentDirectory() : CreatureFolderPath,
+                RestoreDirectory = true
             };
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -667,6 +706,8 @@ namespace CreatureXmlEditor
 
                     txtSplash.Visible = false;
                     tabControl.Visible = true;
+                    tabBasicInfo.Focus();
+                    txtDescription.SelectionLength = 0;
                 }
                 catch (Exception ex)
                 {
@@ -687,6 +728,8 @@ namespace CreatureXmlEditor
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
                 Filter = "Creature XML Files (*.creature.xml)|*.creature.xml|XML Files (*.xml)|*.xml",
+                FilterIndex=0,
+                InitialDirectory = string.IsNullOrEmpty(CreatureFolderPath) ? Directory.GetCurrentDirectory() : CreatureFolderPath,
                 Title = "Save Creature File",
                 FileName = tmpName.Replace(" ", "_") + ".creature.xml"
             };
@@ -723,7 +766,52 @@ namespace CreatureXmlEditor
 
 
 
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //show the App settings
+            ConfigEditor configEditor = new ConfigEditor();
+            
+        }
 
+        #endregion
+
+        #region Avatar Image Handling
+        private void pictureBoxAvatar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Let user select an image file
+                using (OpenFileDialog ofd = new OpenFileDialog())
+                {
+                    ofd.Title = "Select an image for avatar";
+                    ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
+
+                    if (ofd.ShowDialog() != DialogResult.OK)
+                    {
+                        Console.WriteLine("No file selected.");
+                        return;
+                    }
+
+                    string inputPath = ofd.FileName;
+
+                    bool isOk = ImageProcessor.CreateAvatar(creature, inputPath, checkBoxGreyScale.Checked);
+                    if (!isOk)
+                    {
+                        MessageBox.Show("Failed to load or apply image");
+                    }
+                    else
+                    {
+                        pictureBoxAvatar.Image = creature.AvatarImage;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                throw;
+            }
+        }
 
         #endregion
 

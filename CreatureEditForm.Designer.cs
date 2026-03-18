@@ -1,6 +1,6 @@
 using System.Windows.Forms;
 
-namespace CreatureXmlEditor
+namespace ERA_CreatureEdit
 {
     partial class CreatureEditForm
     {
@@ -84,6 +84,9 @@ namespace CreatureXmlEditor
             lblAttackQuickness = new Label();
             numAttackQuickness = new NumericUpDown();
             tabBasicInfo = new TabPage();
+            checkBoxGreyScale = new CheckBox();
+            pictureBoxAvatar = new PictureBox();
+            labelAvatar = new Label();
             lblCreatureName = new Label();
             txtCreatureName = new TextBox();
             txtCategory = new TextBox();
@@ -106,6 +109,7 @@ namespace CreatureXmlEditor
             lstDefensiveModifications = new ListBox();
             txtSplash = new TextBox();
             toolTip1 = new ToolTip(components);
+            settingsToolStripMenuItem = new ToolStripMenuItem();
             mainMenu1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numAttackBonus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numAttackSizeAdj).BeginInit();
@@ -124,6 +128,7 @@ namespace CreatureXmlEditor
             ((System.ComponentModel.ISupportInitialize)numBaseMovement).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numAttackQuickness).BeginInit();
             tabBasicInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxAvatar).BeginInit();
             tabControl.SuspendLayout();
             tabDefence.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numArmorType).BeginInit();
@@ -134,7 +139,7 @@ namespace CreatureXmlEditor
             // 
             // mainMenu1
             // 
-            mainMenu1.Items.AddRange(new ToolStripItem[] { toolStripMenuItemNew, toolStripMenuItemLoad, toolStripMenuItemSave, toolStripMenuItemSaveAs, toolStripMenuItemQuit });
+            mainMenu1.Items.AddRange(new ToolStripItem[] { toolStripMenuItemNew, toolStripMenuItemLoad, toolStripMenuItemSave, toolStripMenuItemSaveAs, toolStripMenuItemQuit, settingsToolStripMenuItem });
             mainMenu1.Location = new Point(0, 0);
             mainMenu1.Name = "mainMenu1";
             mainMenu1.Padding = new Padding(7, 2, 0, 2);
@@ -708,6 +713,9 @@ namespace CreatureXmlEditor
             // tabBasicInfo
             // 
             tabBasicInfo.BackColor = Color.RosyBrown;
+            tabBasicInfo.Controls.Add(checkBoxGreyScale);
+            tabBasicInfo.Controls.Add(pictureBoxAvatar);
+            tabBasicInfo.Controls.Add(labelAvatar);
             tabBasicInfo.Controls.Add(lblCreatureName);
             tabBasicInfo.Controls.Add(txtCreatureName);
             tabBasicInfo.Controls.Add(txtCategory);
@@ -721,6 +729,44 @@ namespace CreatureXmlEditor
             tabBasicInfo.Size = new Size(757, 379);
             tabBasicInfo.TabIndex = 0;
             tabBasicInfo.Text = "Basic Info";
+            // 
+            // checkBoxGreyScale
+            // 
+            checkBoxGreyScale.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            checkBoxGreyScale.AutoSize = true;
+            checkBoxGreyScale.Checked = true;
+            checkBoxGreyScale.CheckState = CheckState.Checked;
+            checkBoxGreyScale.Font = new Font("Book Antiqua", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            checkBoxGreyScale.Location = new Point(645, 154);
+            checkBoxGreyScale.Name = "checkBoxGreyScale";
+            checkBoxGreyScale.Size = new Size(84, 21);
+            checkBoxGreyScale.TabIndex = 8;
+            checkBoxGreyScale.Text = "Greyscale";
+            toolTip1.SetToolTip(checkBoxGreyScale, "force the Avatar to greyscale upon load");
+            checkBoxGreyScale.UseVisualStyleBackColor = true;
+            // 
+            // pictureBoxAvatar
+            // 
+            pictureBoxAvatar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            pictureBoxAvatar.BorderStyle = BorderStyle.Fixed3D;
+            pictureBoxAvatar.Location = new Point(629, 48);
+            pictureBoxAvatar.Name = "pictureBoxAvatar";
+            pictureBoxAvatar.Size = new Size(100, 100);
+            pictureBoxAvatar.TabIndex = 7;
+            pictureBoxAvatar.TabStop = false;
+            toolTip1.SetToolTip(pictureBoxAvatar, "Click to load ");
+            pictureBoxAvatar.Click += pictureBoxAvatar_Click;
+            // 
+            // labelAvatar
+            // 
+            labelAvatar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            labelAvatar.AutoSize = true;
+            labelAvatar.Location = new Point(642, 25);
+            labelAvatar.Margin = new Padding(4, 0, 4, 0);
+            labelAvatar.Name = "labelAvatar";
+            labelAvatar.Size = new Size(61, 20);
+            labelAvatar.TabIndex = 6;
+            labelAvatar.Text = "Avatar:";
             // 
             // lblCreatureName
             // 
@@ -761,8 +807,10 @@ namespace CreatureXmlEditor
             txtDescription.Margin = new Padding(4, 3, 4, 3);
             txtDescription.Multiline = true;
             txtDescription.Name = "txtDescription";
-            txtDescription.Size = new Size(579, 230);
+            txtDescription.ScrollBars = ScrollBars.Vertical;
+            txtDescription.Size = new Size(424, 207);
             txtDescription.TabIndex = 5;
+            toolTip1.SetToolTip(txtDescription, "provide a description. include level and any special abilities");
             txtDescription.TextChanged += TextChanged_Handler;
             // 
             // lblCategory
@@ -973,6 +1021,15 @@ namespace CreatureXmlEditor
             txtSplash.Text = resources.GetString("txtSplash.Text");
             txtSplash.TextAlign = HorizontalAlignment.Center;
             // 
+            // settingsToolStripMenuItem
+            // 
+            settingsToolStripMenuItem.Alignment = ToolStripItemAlignment.Right;
+            settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            settingsToolStripMenuItem.Size = new Size(61, 20);
+            settingsToolStripMenuItem.Text = "Settings";
+            settingsToolStripMenuItem.TextAlign = ContentAlignment.MiddleRight;
+            settingsToolStripMenuItem.Click += settingsToolStripMenuItem_Click;
+            // 
             // CreatureEditForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1010,6 +1067,7 @@ namespace CreatureXmlEditor
             ((System.ComponentModel.ISupportInitialize)numAttackQuickness).EndInit();
             tabBasicInfo.ResumeLayout(false);
             tabBasicInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxAvatar).EndInit();
             tabControl.ResumeLayout(false);
             tabDefence.ResumeLayout(false);
             tabDefence.PerformLayout();
@@ -1104,5 +1162,9 @@ namespace CreatureXmlEditor
         private ToolStripMenuItem toolStripMenuItemSave;
         private ToolStripMenuItem toolStripMenuItemSaveAs;
         private ToolStripMenuItem toolStripMenuItemQuit;
+        private Label labelAvatar;
+        private CheckBox checkBoxGreyScale;
+        private PictureBox pictureBoxAvatar;
+        private ToolStripMenuItem settingsToolStripMenuItem;
     }
 }

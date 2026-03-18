@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyVersion>1.0.9568.23895</AssemblyVersion>
-    <FileVersion>1.0.9568.23895</FileVersion>
+    <AssemblyVersion>1.1.9573.15834</AssemblyVersion>
+    <FileVersion>1.1.9573.15834</FileVersion>
     <PackageIcon>monster editing app1.png</PackageIcon>
     <ApplicationIcon>Resources\ERACreature.ico</ApplicationIcon>
     <StartupObject>ERA_Core.Program</StartupObject>
@@ -42,6 +42,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Resources\Types_Attacks.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

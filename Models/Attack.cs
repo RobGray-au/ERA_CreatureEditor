@@ -1,6 +1,6 @@
 using System.Xml.Serialization;
 
-namespace CreatureXmlEditor.Models
+namespace ERA_CreatureEdit.Models
 {
     public class Attack
     {

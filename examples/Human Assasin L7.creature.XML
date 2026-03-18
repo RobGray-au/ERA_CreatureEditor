@@ -1,0 +1,37 @@
+<Creature Name="Human Assasin L7">
+  <Category>Human</Category>
+  <LevelStatistics averageLevel="7" />
+  <MovementStatistics baseMovement="22" attackQuickness="6" />
+  <CombatStatistics armorType="5" defensiveBonus="15" baseHits="72">
+    <DefensiveModifications>
+      <DefensiveModification bonusOrPenalty="15" concept="Target Shield" />
+    </DefensiveModifications>
+    <ResistanceRollBonuses>
+      <ResistanceRollBonus concept="Channeling" totalBonus="10" />
+      <ResistanceRollBonus concept="Essence" totalBonus="15" />
+      <ResistanceRollBonus concept="Mentalism" totalBonus="5" />
+      <ResistanceRollBonus concept="Physical" totalBonus="34" />
+      <ResistanceRollBonus concept="Fear" totalBonus="11" />
+    </ResistanceRollBonuses>
+    <Attacks>
+      <Attack bonus="46" tableName="Short Sword" name="Short Sword" sizeAdjustment="0" />
+      <Attack bonus="26" tableName="Short Sword" name="Running sword charge" sizeAdjustment="1" />
+      <Attack bonus="39" tableName="Short Bow" name="Short Bow" sizeAdjustment="0" />
+      <Attack bonus="39" tableName="Dagger" name="Stilletto" sizeAdjustment="0" />
+    </Attacks>
+  </CombatStatistics>
+  <ManeuverSkills>
+    <Skill name="Perception" tableName="Awareness" ranks="6" bonus="32" />
+    <Skill name="Endurance" tableName="Brawn" ranks="7" bonus="47" />
+    <Skill name="Running" tableName="Movement" ranks="7" bonus="42" />
+    <Skill name="Stalking" tableName="Movement" ranks="6" bonus="39" />
+    <Skill name="Footwork" tableName="Special" ranks="6" bonus="30" />
+    <Skill name="Maneuvering in Armor" tableName="Special" ranks="3" bonus="15" />
+    <Skill name="Shield" tableName="Shield" ranks="2" bonus="20" />
+    <Skill name="Ambush" tableName="Manourve" ranks="10" bonus="10" />
+  </ManeuverSkills>
+  <Description>Human Assasin Lvl7
+	
+10 ambush</Description>
+  <Avatar>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</Avatar>
+</Creature>

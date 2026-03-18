@@ -1,10 +1,10 @@
-using CreatureXmlEditor.Models;
+using ERA_CreatureEdit.Models;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace CreatureXmlEditor.Utilities
+namespace ERA_CreatureEdit.Utilities
 {
     public class XmlHelper
     {
