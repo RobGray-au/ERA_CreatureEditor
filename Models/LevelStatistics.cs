@@ -7,9 +7,15 @@ namespace ERA_CreatureEdit.Models
         [XmlAttribute("averageLevel")]
         public int AverageLevel { get; set; }
 
+        [XmlAttribute("levelCode")] 
+        public string? LevelCode { get; set; }
+
         public LevelStatistics()
         {
-            AverageLevel = 1;
+            AverageLevel = 3;
+            LevelCode = "C";
         }
+
+
     }
 }

@@ -110,21 +110,22 @@ namespace ERA_CreatureEdit
             lstDefensiveModifications = new ListBox();
             tabSpells = new TabPage();
             groupBox1 = new GroupBox();
+            numSpellBonus = new NumericUpDown();
+            butAddSpellList = new Button();
+            labels2 = new Label();
+            cbListName = new ComboBox();
+            listboxSpellPicks = new ComboBox();
             label5 = new Label();
             cboSpellListType = new ComboBox();
-            listBoxSpellPicks = new ListBox();
-            label1 = new Label();
-            tbSpellListName = new TextBox();
-            label2 = new Label();
+            labels1 = new Label();
             label3 = new Label();
-            numericUpDown1 = new NumericUpDown();
+            updownSpellLevel = new NumericUpDown();
             label4 = new Label();
-            numericUpDown2 = new NumericUpDown();
-            button1 = new Button();
             listBoxSpells = new ListBox();
-            button2 = new Button();
+            butSpellRemove = new Button();
             txtSplash = new TextBox();
             toolTip1 = new ToolTip(components);
+            butAvatarDelete = new Button();
             mainMenu1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numAttackBonus).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numAttackSizeAdj).BeginInit();
@@ -152,8 +153,8 @@ namespace ERA_CreatureEdit
             ((System.ComponentModel.ISupportInitialize)numDefModBonus).BeginInit();
             tabSpells.SuspendLayout();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numSpellBonus).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)updownSpellLevel).BeginInit();
             SuspendLayout();
             // 
             // mainMenu1
@@ -708,6 +709,7 @@ namespace ERA_CreatureEdit
             // 
             numBaseMovement.Location = new Point(163, 44);
             numBaseMovement.Margin = new Padding(4, 3, 4, 3);
+            numBaseMovement.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
             numBaseMovement.Minimum = new decimal(new int[] { 10, 0, 0, int.MinValue });
             numBaseMovement.Name = "numBaseMovement";
             numBaseMovement.Size = new Size(86, 27);
@@ -722,9 +724,9 @@ namespace ERA_CreatureEdit
             lblAttackQuickness.Location = new Point(9, 82);
             lblAttackQuickness.Margin = new Padding(4, 0, 4, 0);
             lblAttackQuickness.Name = "lblAttackQuickness";
-            lblAttackQuickness.Size = new Size(138, 20);
+            lblAttackQuickness.Size = new Size(136, 20);
             lblAttackQuickness.TabIndex = 0;
-            lblAttackQuickness.Text = "Attack Quickness:";
+            lblAttackQuickness.Text = "Quickness bonus:";
             // 
             // numAttackQuickness
             // 
@@ -741,6 +743,7 @@ namespace ERA_CreatureEdit
             // tabBasicInfo
             // 
             tabBasicInfo.BackColor = Color.RosyBrown;
+            tabBasicInfo.Controls.Add(butAvatarDelete);
             tabBasicInfo.Controls.Add(checkBoxGreyScale);
             tabBasicInfo.Controls.Add(pictureBoxAvatar);
             tabBasicInfo.Controls.Add(labelAvatar);
@@ -765,7 +768,7 @@ namespace ERA_CreatureEdit
             checkBoxGreyScale.Checked = true;
             checkBoxGreyScale.CheckState = CheckState.Checked;
             checkBoxGreyScale.Font = new Font("Book Antiqua", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBoxGreyScale.Location = new Point(645, 154);
+            checkBoxGreyScale.Location = new Point(629, 154);
             checkBoxGreyScale.Name = "checkBoxGreyScale";
             checkBoxGreyScale.Size = new Size(84, 21);
             checkBoxGreyScale.TabIndex = 8;
@@ -784,6 +787,8 @@ namespace ERA_CreatureEdit
             pictureBoxAvatar.TabStop = false;
             toolTip1.SetToolTip(pictureBoxAvatar, "Click to load ");
             pictureBoxAvatar.Click += pictureBoxAvatar_Click;
+            pictureBoxAvatar.MouseEnter += pictureBoxAvatar_MouseEnter;
+            pictureBoxAvatar.MouseLeave += pictureBoxAvatar_MouseLeave;
             // 
             // labelAvatar
             // 
@@ -1049,19 +1054,19 @@ namespace ERA_CreatureEdit
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(numSpellBonus);
+            groupBox1.Controls.Add(butAddSpellList);
+            groupBox1.Controls.Add(labels2);
+            groupBox1.Controls.Add(cbListName);
+            groupBox1.Controls.Add(listboxSpellPicks);
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(cboSpellListType);
-            groupBox1.Controls.Add(listBoxSpellPicks);
-            groupBox1.Controls.Add(label1);
-            groupBox1.Controls.Add(tbSpellListName);
-            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(labels1);
             groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(numericUpDown1);
+            groupBox1.Controls.Add(updownSpellLevel);
             groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(numericUpDown2);
-            groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(listBoxSpells);
-            groupBox1.Controls.Add(button2);
+            groupBox1.Controls.Add(butSpellRemove);
             groupBox1.Location = new Point(27, 5);
             groupBox1.Margin = new Padding(4, 3, 4, 3);
             groupBox1.Name = "groupBox1";
@@ -1070,6 +1075,61 @@ namespace ERA_CreatureEdit
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Spell Lists known";
+            // 
+            // numSpellBonus
+            // 
+            numSpellBonus.Location = new Point(394, 63);
+            numSpellBonus.Maximum = new decimal(new int[] { 200, 0, 0, 0 });
+            numSpellBonus.Minimum = new decimal(new int[] { 20, 0, 0, int.MinValue });
+            numSpellBonus.Name = "numSpellBonus";
+            numSpellBonus.Size = new Size(59, 27);
+            numSpellBonus.TabIndex = 19;
+            numSpellBonus.TextAlign = HorizontalAlignment.Center;
+            // 
+            // butAddSpellList
+            // 
+            butAddSpellList.Location = new Point(541, 55);
+            butAddSpellList.Margin = new Padding(4, 3, 4, 3);
+            butAddSpellList.Name = "butAddSpellList";
+            butAddSpellList.Size = new Size(104, 39);
+            butAddSpellList.TabIndex = 18;
+            butAddSpellList.Text = "Add";
+            butAddSpellList.UseVisualStyleBackColor = true;
+            butAddSpellList.Click += butAddSpellList_Click;
+            // 
+            // labels2
+            // 
+            labels2.AutoSize = true;
+            labels2.Location = new Point(416, 26);
+            labels2.Margin = new Padding(4, 0, 4, 0);
+            labels2.Name = "labels2";
+            labels2.Size = new Size(59, 20);
+            labels2.TabIndex = 16;
+            labels2.Text = "Realm:";
+            // 
+            // cbListName
+            // 
+            cbListName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cbListName.FormattingEnabled = true;
+            cbListName.Items.AddRange(new object[] { "Open Same-Realm", "Closed Same-Realm", "Base Same-Realm", "Open Other Realm", "Close Other Realm", "Base Other Realm", "Evil Base" });
+            cbListName.Location = new Point(107, 23);
+            cbListName.Name = "cbListName";
+            cbListName.Size = new Size(302, 28);
+            cbListName.TabIndex = 15;
+            toolTip1.SetToolTip(cbListName, "select from std types or enter description");
+            cbListName.SelectedIndexChanged += cbListName_SelectedIndexChanged;
+            // 
+            // listboxSpellPicks
+            // 
+            listboxSpellPicks.DisplayMember = "Portion";
+            listboxSpellPicks.DropDownStyle = ComboBoxStyle.DropDownList;
+            listboxSpellPicks.FormattingEnabled = true;
+            listboxSpellPicks.Location = new Point(69, 59);
+            listboxSpellPicks.Name = "listboxSpellPicks";
+            listboxSpellPicks.Size = new Size(38, 28);
+            listboxSpellPicks.TabIndex = 14;
+            listboxSpellPicks.ValueMember = "MaxLevel";
+            listboxSpellPicks.SelectedIndexChanged += listboxSpellPicks_SelectedIndexChanged;
             // 
             // label5
             // 
@@ -1087,52 +1147,22 @@ namespace ERA_CreatureEdit
             cboSpellListType.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             cboSpellListType.FormattingEnabled = true;
             cboSpellListType.Items.AddRange(new object[] { "Open Same-Realm", "Closed Same-Realm", "Base Same-Realm", "Open Other Realm", "Close Other Realm", "Base Other Realm", "Evil Base" });
-            cboSpellListType.Location = new Point(444, 23);
+            cboSpellListType.Location = new Point(482, 23);
             cboSpellListType.Name = "cboSpellListType";
-            cboSpellListType.Size = new Size(222, 28);
+            cboSpellListType.Size = new Size(201, 28);
             cboSpellListType.TabIndex = 12;
             toolTip1.SetToolTip(cboSpellListType, "select from std types or enter description");
+            cboSpellListType.SelectedIndexChanged += cboSpellListType_SelectedIndexChanged;
             // 
-            // listBoxSpellPicks
+            // labels1
             // 
-            listBoxSpellPicks.DisplayMember = "Text";
-            listBoxSpellPicks.FormattingEnabled = true;
-            listBoxSpellPicks.Items.AddRange(new object[] { "A", "B", "C", "D", "E" });
-            listBoxSpellPicks.Location = new Point(69, 60);
-            listBoxSpellPicks.Name = "listBoxSpellPicks";
-            listBoxSpellPicks.Size = new Size(41, 24);
-            listBoxSpellPicks.TabIndex = 11;
-            toolTip1.SetToolTip(listBoxSpellPicks, "Pick type, replaces max level");
-            listBoxSpellPicks.ValueMember = "Value";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(13, 29);
-            label1.Margin = new Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(87, 20);
-            label1.TabIndex = 0;
-            label1.Text = "List Name:";
-            // 
-            // tbSpellListName
-            // 
-            tbSpellListName.Location = new Point(108, 25);
-            tbSpellListName.Margin = new Padding(4, 3, 4, 3);
-            tbSpellListName.Name = "tbSpellListName";
-            tbSpellListName.Size = new Size(231, 27);
-            tbSpellListName.TabIndex = 1;
-            toolTip1.SetToolTip(tbSpellListName, "must be exactly as per Spell Law to be recognised\r\n and actioned by Adventure Module");
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(385, 25);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(53, 20);
-            label2.TabIndex = 2;
-            label2.Text = "Table:";
+            labels1.AutoSize = true;
+            labels1.Location = new Point(13, 29);
+            labels1.Margin = new Padding(4, 0, 4, 0);
+            labels1.Name = "labels1";
+            labels1.Size = new Size(87, 20);
+            labels1.TabIndex = 0;
+            labels1.Text = "List Name:";
             // 
             // label3
             // 
@@ -1145,18 +1175,19 @@ namespace ERA_CreatureEdit
             label3.Text = "Max level:";
             toolTip1.SetToolTip(label3, "Max level known");
             // 
-            // numericUpDown1
+            // updownSpellLevel
             // 
-            numericUpDown1.Location = new Point(219, 61);
-            numericUpDown1.Margin = new Padding(4, 3, 4, 3);
-            numericUpDown1.Maximum = new decimal(new int[] { 25, 0, 0, 0 });
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(55, 27);
-            numericUpDown1.TabIndex = 5;
-            numericUpDown1.TextAlign = HorizontalAlignment.Center;
+            updownSpellLevel.Location = new Point(219, 61);
+            updownSpellLevel.Margin = new Padding(4, 3, 4, 3);
+            updownSpellLevel.Maximum = new decimal(new int[] { 50, 0, 0, 0 });
+            updownSpellLevel.Name = "updownSpellLevel";
+            updownSpellLevel.Size = new Size(55, 27);
+            updownSpellLevel.TabIndex = 5;
+            updownSpellLevel.TextAlign = HorizontalAlignment.Center;
             // 
             // label4
             // 
+            label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
             label4.Location = new Point(329, 68);
             label4.Margin = new Padding(4, 0, 4, 0);
@@ -1164,27 +1195,6 @@ namespace ERA_CreatureEdit
             label4.Size = new Size(58, 20);
             label4.TabIndex = 6;
             label4.Text = "Bonus:";
-            // 
-            // numericUpDown2
-            // 
-            numericUpDown2.Location = new Point(402, 63);
-            numericUpDown2.Margin = new Padding(4, 3, 4, 3);
-            numericUpDown2.Maximum = new decimal(new int[] { 250, 0, 0, 0 });
-            numericUpDown2.Minimum = new decimal(new int[] { 20, 0, 0, int.MinValue });
-            numericUpDown2.Name = "numericUpDown2";
-            numericUpDown2.Size = new Size(117, 27);
-            numericUpDown2.TabIndex = 7;
-            numericUpDown2.TextAlign = HorizontalAlignment.Center;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(541, 59);
-            button1.Margin = new Padding(4, 3, 4, 3);
-            button1.Name = "button1";
-            button1.Size = new Size(88, 33);
-            button1.TabIndex = 8;
-            button1.Text = "Add";
-            button1.UseVisualStyleBackColor = true;
             // 
             // listBoxSpells
             // 
@@ -1194,16 +1204,18 @@ namespace ERA_CreatureEdit
             listBoxSpells.Name = "listBoxSpells";
             listBoxSpells.Size = new Size(638, 204);
             listBoxSpells.TabIndex = 9;
+            listBoxSpells.SelectedIndexChanged += listBoxSpells_SelectedIndexChanged;
             // 
-            // button2
+            // butSpellRemove
             // 
-            button2.Location = new Point(541, 320);
-            button2.Margin = new Padding(4, 3, 4, 3);
-            button2.Name = "button2";
-            button2.Size = new Size(104, 39);
-            button2.TabIndex = 10;
-            button2.Text = "Remove";
-            button2.UseVisualStyleBackColor = true;
+            butSpellRemove.Location = new Point(541, 320);
+            butSpellRemove.Margin = new Padding(4, 3, 4, 3);
+            butSpellRemove.Name = "butSpellRemove";
+            butSpellRemove.Size = new Size(104, 39);
+            butSpellRemove.TabIndex = 10;
+            butSpellRemove.Text = "Remove";
+            butSpellRemove.UseVisualStyleBackColor = true;
+            butSpellRemove.Click += butSpellRemove_Click;
             // 
             // txtSplash
             // 
@@ -1219,6 +1231,17 @@ namespace ERA_CreatureEdit
             txtSplash.TabIndex = 2;
             txtSplash.Text = resources.GetString("txtSplash.Text");
             txtSplash.TextAlign = HorizontalAlignment.Center;
+            // 
+            // butAvatarDelete
+            // 
+            butAvatarDelete.Image = Properties.Resources.Clearallrequests_8816;
+            butAvatarDelete.Location = new Point(719, 150);
+            butAvatarDelete.Name = "butAvatarDelete";
+            butAvatarDelete.Size = new Size(20, 25);
+            butAvatarDelete.TabIndex = 9;
+            toolTip1.SetToolTip(butAvatarDelete, "remove Avartar");
+            butAvatarDelete.UseVisualStyleBackColor = true;
+            butAvatarDelete.Click += butAvatarDelete_Click;
             // 
             // CreatureEditForm
             // 
@@ -1269,8 +1292,8 @@ namespace ERA_CreatureEdit
             tabSpells.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numSpellBonus).EndInit();
+            ((System.ComponentModel.ISupportInitialize)updownSpellLevel).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -1363,18 +1386,23 @@ namespace ERA_CreatureEdit
         private ToolStripMenuItem settingsToolStripMenuItem;
         private TabPage tabSpells;
         private GroupBox groupBox1;
-        private Label label1;
+        private Label labels1;
         private TextBox tbSpellListName;
         private Label label2;
         private Label label3;
-        private NumericUpDown numericUpDown1;
+        private NumericUpDown updownSpellLevel;
         private Label label4;
         private NumericUpDown numericUpDown2;
         private Button button1;
         private ListBox listBoxSpells;
-        private Button button2;
-        private ListBox listBoxSpellPicks;
+        private Button butSpellRemove;
         private ComboBox cboSpellListType;
         private Label label5;
+        private ComboBox listboxSpellPicks;
+        private ComboBox cbListName;
+        private Label labels2;
+        private Button butAddSpellList;
+        private NumericUpDown numSpellBonus;
+        private Button butAvatarDelete;
     }
 }

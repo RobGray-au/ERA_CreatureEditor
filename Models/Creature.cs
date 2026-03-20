@@ -43,10 +43,8 @@ namespace ERA_CreatureEdit.Models
                 try
                 {
                     byte[] imageBytes = Convert.FromBase64String(AvatarTxt);
-                    using (var ms = new MemoryStream(imageBytes))
-                    {
-                        return Image.FromStream(ms);
-                    }
+                    using var ms = new MemoryStream(imageBytes);
+                    return Image.FromStream(ms);
                 }
                 catch
                 {
@@ -63,11 +61,9 @@ namespace ERA_CreatureEdit.Models
                 {
                     Image thisImg = value;
                     ImageFormat fmt= ImageFormat.Jpeg;
-                    using (var ms = new MemoryStream())
-                    {
-                        value.Save(ms, fmt);   //was value.RawFormat but that was causing some issues with certain formats, so just save as jpeg for now
-                        AvatarTxt = Convert.ToBase64String(ms.ToArray());
-                    }
+                    using var ms = new MemoryStream();
+                    value.Save(ms, fmt);   //was value.RawFormat but that was causing some issues with certain formats, so just save as jpeg for now
+                    AvatarTxt = Convert.ToBase64String(ms.ToArray());
                 }
             }
         }
@@ -110,5 +106,7 @@ namespace ERA_CreatureEdit.Models
         {
             Spells = new List<Skill>();
         }
+
+
     }
 }

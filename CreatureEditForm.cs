@@ -25,8 +25,9 @@ namespace ERA_CreatureEdit
         private Creature creature;
         private string currentFilePath = "";
         private bool isModified = false;
-        public List<ResistanceType> ResistanceList = new();
-        public List<AttackType> AttackList = new();
+        public List<ResistanceType> ResistanceList = [];
+        public List<AttackType> AttackList = [];
+        public List<SpellListType> SpellLists = [];
 
         internal GetConfig.ConfigurationManager Config { get; private set; }
         internal string CreatureFolderPath = "";
@@ -40,13 +41,19 @@ namespace ERA_CreatureEdit
 
 
             Config = new GetConfig.ConfigurationManager(); //load basic & default configuration 
+            LoadConfig();
 
             Version? version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
             DateTime buildDate = new DateTime(2000, 1, 1)
                                     .AddDays(version.Build).AddSeconds(version.Revision * 2 + 10 * 3600);
             string displayableVersion = $"{version} ({buildDate})";
 
-            LoadConfig();
+
+            //preload the spell lists for the spell list type dropdown
+            cbListName.DataSource = null;
+            cbListName.Items.Clear();
+            cbListName.DataSource = SpellLists;  //from JSON
+
 
             this.txtSplash.Text += string.Format("\n\r\n\r\n\rVer: {0}   Created by: RobG\n", displayableVersion);
             this.Shown += ShowForm;
@@ -187,6 +194,16 @@ namespace ERA_CreatureEdit
                 AttackList = new List<AttackType>();
             }
 
+            try
+            {
+                SpellLists = Utilities.JsonHelper.LoadSpellLists(@"Resources\Types_SpellLists.json");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading pellLists: {ex.Message}", "JSON Load Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                SpellLists = new List<SpellListType>();
+            }
+
         }
 
         private void LoadCreatureToForm()
@@ -200,7 +217,7 @@ namespace ERA_CreatureEdit
 
             // Movement Statistics
             numBaseMovement.Value = creature.MovementStatistics.BaseMovement;
-            numAttackQuickness.Value = creature.MovementStatistics.AttackQuickness;
+            numAttackQuickness.Value = creature.MovementStatistics.QuicknessBonus;
 
             // Combat Statistics
             numArmorType.Value = creature.CombatStatistics.ArmorType;
@@ -212,6 +229,7 @@ namespace ERA_CreatureEdit
             LoadResistanceRollBonuses();
             LoadAttacks();
             LoadSkills();
+            LoadSpells();
 
             // Description
             txtDescription.Text = creature.Description.Replace("\n", "\r\n");
@@ -293,6 +311,15 @@ namespace ERA_CreatureEdit
             }
         }
 
+        private void LoadSpells()
+        {
+            listBoxSpells.Items.Clear();
+            foreach (var spell in creature.SpellLists.Spells)
+            {
+                listBoxSpells.Items.Add(spell);
+            }
+        }
+
         private void SaveFormToCreature()
         {
             // Basic Info
@@ -304,7 +331,7 @@ namespace ERA_CreatureEdit
 
             // Movement Statistics
             creature.MovementStatistics.BaseMovement = (int)numBaseMovement.Value;
-            creature.MovementStatistics.AttackQuickness = (int)numAttackQuickness.Value;
+            creature.MovementStatistics.QuicknessBonus = (int)numAttackQuickness.Value;
 
             // Combat Statistics
             creature.CombatStatistics.ArmorType = (int)numArmorType.Value;
@@ -341,6 +368,7 @@ namespace ERA_CreatureEdit
             string fileName = string.IsNullOrEmpty(currentFilePath) ? "New Creature" : System.IO.Path.GetFileName(currentFilePath);
             this.Text = $"Creature XML Editor - {fileName}{modified}";
         }
+
 
 
         private void tabBasic_Click(object sender, EventArgs e)
@@ -711,7 +739,7 @@ namespace ERA_CreatureEdit
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error loading file:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error loading file:\n{ex.Message}\n{ex.InnerException.Message.ToString()}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -777,6 +805,18 @@ namespace ERA_CreatureEdit
         #endregion
 
         #region Avatar Image Handling
+
+        private void pictureBoxAvatar_MouseLeave(object sender, EventArgs e)
+        {
+            pictureBoxAvatar.Cursor = Cursors.Default;
+
+        }
+
+        private void pictureBoxAvatar_MouseEnter(object sender, EventArgs e)
+        {
+            pictureBoxAvatar.Cursor = Cursors.SizeAll;
+        }
+
         private void pictureBoxAvatar_Click(object sender, EventArgs e)
         {
             try
@@ -814,11 +854,17 @@ namespace ERA_CreatureEdit
             }
         }
 
+        private void butAvatarDelete_Click(object sender, EventArgs e)
+        {
+            pictureBoxAvatar.Image = null;
+            creature.AvatarImage = new Bitmap(1, 1); // Set to a blank image to clear the Base64 string
+        }
+
         #endregion
 
 
 
-
+        #region Spells
         private void tabSpells_Enter(object sender, EventArgs e)
         {
             // Create a list of items
@@ -830,9 +876,109 @@ namespace ERA_CreatureEdit
                 new SpellPicks { Portion = "D", Maxlevel = 20 },
                 new SpellPicks { Portion = "E", Maxlevel = 30 }
             };
-            listBoxSpellPicks.Items.Clear();
-            listBoxSpellPicks.Items.AddRange(items.ToArray());
+            listboxSpellPicks.Items.Clear();
+            listboxSpellPicks.Items.AddRange(items.ToArray());
+            listboxSpellPicks.DisplayMember = "Portion"; // Set the property to display
+            listboxSpellPicks.ValueMember = "Maxlevel"; // Set the property for the value
+
+
+
+            cbListName.SelectedIndex = -1;
+            cbListName.Text = "";
+            cboSpellListType.SelectedIndex = -1;
+
         }
+
+        private void listboxSpellPicks_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            updownSpellLevel.Value = listboxSpellPicks.SelectedItem is SpellPicks selected ? selected.Maxlevel : 5;
+        }
+
+
+
+        private void cbListName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbListName.SelectedIndex > -1)
+            {
+                var selectedSpellList = cbListName.SelectedItem as SpellListType;
+                if (selectedSpellList != null)
+                {
+                    cboSpellListType.Text = selectedSpellList.SourceRealm;
+                }
+            }
+            //SpellListType selectedList = SpellListType.ConvertToSpellListType(cbListName.SelectedItem.ToString());
+
+        }
+
+        private void cboSpellListType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void butSpellRemove_Click(object sender, EventArgs e)
+        {
+            if (listBoxSpells.SelectedIndex >= 0)
+            {
+                creature.SpellLists.Spells.RemoveAt(listBoxSpells.SelectedIndex);
+                LoadSpells();
+                ResetSpellAdd();
+                isModified = true;
+                UpdateTitle();
+            }
+        }
+        private void butAddSpellList_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(cbListName.Text) || string.IsNullOrWhiteSpace(cboSpellListType.Text))
+            {
+                MessageBox.Show("Please enter both spell list name and Realm name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (butAddSpellList.Text == "Update" && listBoxSpells.SelectedIndex >= 0)
+            {
+                // Update existing attack
+                var spell = creature.SpellLists.Spells[listBoxSpells.SelectedIndex];
+                spell.Name = cbListName.Text;
+                spell.TableName = cboSpellListType.Text;
+                spell.Bonus = (int)numSpellBonus.Value;
+                spell.Ranks = (int)updownSpellLevel.Value;
+            }
+            else
+            {
+                var spell = new Skill(cbListName.Text, cboSpellListType.Text, (int)updownSpellLevel.Value, (int)numSpellBonus.Value);
+                creature.SpellLists.Spells.Add(spell);
+            }
+
+            LoadSpells();
+            ResetSpellAdd();
+            isModified = true;
+            UpdateTitle();
+        }
+        private void listBoxSpells_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxSpells.SelectedIndex >= 0)
+            {
+                var spell = creature.SpellLists.Spells[listBoxSpells.SelectedIndex];
+                cbListName.Text = spell.Name;
+                cboSpellListType.Text = spell.TableName;
+                updownSpellLevel.Value = spell.Ranks;
+                numSpellBonus.Value = spell.Bonus;
+
+                butAddSpellList.Text = "Update";
+            }
+
+        }
+
+        private void ResetSpellAdd()
+        {
+            cbListName.Text = "";
+            cboSpellListType.Text = "";
+            updownSpellLevel.Value = 0;
+            numSpellBonus.Value = 0;
+            butAddSpellList.Text = "Add";
+        }
+
+        #endregion
+
 
 
     }

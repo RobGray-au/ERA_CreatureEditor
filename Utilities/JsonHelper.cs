@@ -28,6 +28,15 @@ namespace ERA_CreatureEdit.Utilities
             return JsonSerializer.Deserialize<List<AttackType>>(json, DefaultOptions) ?? new List<AttackType>();
         }
 
+        public static List<SpellListType> LoadSpellLists(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+                return new List<SpellListType>();
+
+            string json = File.ReadAllText(path);
+            return JsonSerializer.Deserialize<List<SpellListType>>(json, DefaultOptions) ?? new List<SpellListType>();
+        }
+
         static void SaveAppSettings(string filePath, AppSettings updatedSettings)
         {
             try
