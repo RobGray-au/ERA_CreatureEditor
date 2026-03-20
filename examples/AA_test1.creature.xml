@@ -1,0 +1,38 @@
+<Creature Name="Test creature4">
+  <Category>Human</Category>
+  <LevelStatistics averageLevel="4" levelCode="C" />
+  <MovementStatistics baseMovement="22" attackQuickness="15" />
+  <CombatStatistics armorType="3" defensiveBonus="15" baseHits="72">
+    <DefensiveModifications>
+      <DefensiveModification bonusOrPenalty="15" concept="Target Shield" />
+    </DefensiveModifications>
+    <ResistanceRollBonuses>
+      <ResistanceRollBonus concept="Channeling" totalBonus="10" />
+      <ResistanceRollBonus concept="Essence" totalBonus="0" />
+      <ResistanceRollBonus concept="Mentalism" totalBonus="0" />
+      <ResistanceRollBonus concept="Physical" totalBonus="1" />
+      <ResistanceRollBonus concept="Fear" totalBonus="1" />
+    </ResistanceRollBonuses>
+    <Attacks>
+      <Attack bonus="46" tableName="Short Sword" name="Short Sword" sizeAdjustment="0" />
+      <Attack bonus="39" tableName="Short Bow" name="Short Bow (2H)" sizeAdjustment="0" />
+    </Attacks>
+  </CombatStatistics>
+  <ManeuverSkills>
+    <Skill name="Perception" tableName="Awareness" ranks="6" bonus="32" />
+    <Skill name="Endurance" tableName="Brawn" ranks="7" bonus="47" />
+    <Skill name="Running" tableName="Movement" ranks="7" bonus="42" />
+    <Skill name="Stalking" tableName="Movement" ranks="6" bonus="39" />
+    <Skill name="Footwork" tableName="Special" ranks="6" bonus="30" />
+    <Skill name="Maneuvering in Armor" tableName="Special" ranks="3" bonus="15" />
+    <Skill name="Shield" tableName="Shield" ranks="2" bonus="20" />
+  </ManeuverSkills>
+  <SpellLists>
+    <Skill name="Unbarring Ways [Open Essence]" tableName="Open Essence" ranks="5" bonus="0" />
+    <Skill name="Lofty Bridge [Closed Essence]" tableName="Closed Essence" ranks="5" bonus="0" />
+  </SpellLists>
+  <Description>
+has some spells and skills
+	</Description>
+  <Avatar>/9j/4AAQSkZJRgABAQEAYABgAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wAARCAABAAEDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD8qqKKKAP/2Q==</Avatar>
+</Creature>
