@@ -11,18 +11,18 @@ namespace GetConfig
     public class ConfigurationManager
     {
         private IConfiguration AppSettings ;
-        private string _jsonPath = "appsettings.json";  // default file, can be overridden by constructor
+        public string configFileName = "appsettings.json";  // default file, can be overridden by constructor
 
         public ConfigurationManager()
         {
             AppSettings = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile(_jsonPath, optional: false, reloadOnChange: true)
+                    .AddJsonFile(configFileName, optional: false, reloadOnChange: true)
                     .Build();
         }
         public ConfigurationManager(string jsonPath)
         {
-            _jsonPath = jsonPath;
+            configFileName = jsonPath;
             AppSettings = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile(jsonPath, optional: false, reloadOnChange: true)
@@ -102,11 +102,11 @@ namespace GetConfig
         // Retrieved 2026-03-16, License - CC BY-SA 4.0
 
 
-        internal static void AddOrUpdateAppSetting<T>(string sectionPathKey, T value)
+        public void AddOrUpdateAppSetting<T>(string sectionPathKey, T value)
         {
             try
             {
-                var filePath = Path.Combine(System.AppContext.BaseDirectory, "appsettings.json");
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, configFileName);
                 string json = File.ReadAllText(filePath);
 
                 // Parse into a mutable JsonObject (System.Text.Json.Nodes)

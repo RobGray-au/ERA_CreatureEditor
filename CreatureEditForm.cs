@@ -798,6 +798,7 @@ namespace ERA_CreatureEdit
         {
             //show the App settings
             ConfigEditor configEditor = new ConfigEditor();
+            configEditor.ConfigFilePath = Config.configFileName;
             configEditor.ShowDialog();
 
         }
@@ -857,7 +858,8 @@ namespace ERA_CreatureEdit
         private void butAvatarDelete_Click(object sender, EventArgs e)
         {
             pictureBoxAvatar.Image = null;
-            creature.AvatarImage = new Bitmap(1, 1); // Set to a blank image to clear the Base64 string
+            creature.AvatarTxt = "";
+            creature.AvatarImage = null; // new Bitmap(1, 1); // Set to a blank image to clear the Base64 string
         }
 
         #endregion
@@ -933,19 +935,25 @@ namespace ERA_CreatureEdit
                 MessageBox.Show("Please enter both spell list name and Realm name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            if (butAddSpellList.Text == "Update" && listBoxSpells.SelectedIndex >= 0)
+            if (butAddSpellList.Text == "Update" && listBoxSpells.SelectedIndex >= 0 && cbListName.SelectedItem!= null)
             {
                 // Update existing attack
                 var spell = creature.SpellLists.Spells[listBoxSpells.SelectedIndex];
-                spell.Name = cbListName.Text;
-                spell.TableName = cboSpellListType.Text;
+                var selectedSpellList =  SpellListType.ConvertToSpellListType(cbListName.SelectedItem.ToString());
+                spell.Name = selectedSpellList.ListName;
+                spell.TableName = selectedSpellList.SourceRealm ;
                 spell.Bonus = (int)numSpellBonus.Value;
                 spell.Ranks = (int)updownSpellLevel.Value;
             }
             else
             {
-                var spell = new Skill(cbListName.Text, cboSpellListType.Text, (int)updownSpellLevel.Value, (int)numSpellBonus.Value);
-                creature.SpellLists.Spells.Add(spell);
+                if(cbListName.SelectedItem != null)
+                {
+                    var selectedSpellList = SpellListType.ConvertToSpellListType(cbListName.SelectedItem.ToString());
+                    var spell = new Skill(selectedSpellList.ListName, selectedSpellList.SourceRealm, (int)updownSpellLevel.Value, (int)numSpellBonus.Value);
+                    creature.SpellLists.Spells.Add(spell);
+                }
+
             }
 
             LoadSpells();

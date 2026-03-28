@@ -6,8 +6,8 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyVersion>1.1.9575.14043</AssemblyVersion>
-    <FileVersion>1.1.9575.14043</FileVersion>
+    <AssemblyVersion>1.1.9583.15490</AssemblyVersion>
+    <FileVersion>1.1.9583.15490</FileVersion>
     <PackageIcon>monster editing app1.png</PackageIcon>
     <ApplicationIcon>Resources\ERACreature.ico</ApplicationIcon>
     <StartupObject>ERA_Core.Program</StartupObject>

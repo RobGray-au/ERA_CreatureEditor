@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -19,16 +20,20 @@ namespace ERA_CreatureEdit
         public string ConfigFilePath { get; set; }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public  string CreaturePath { get; set; }
+        public string CreaturePath { get; set; }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public bool AvatarGreyscale { get; set; }
 
+
+        private JsonObject jsonConfig;
+
         public ConfigEditor()
         {
             InitializeComponent();
-            this.Text = "ERA Configuration Editor";
+            this.Text = "ERA Creature Editor Settings";
             this.Size = new System.Drawing.Size(600, 400);
+            //LoadConfigFile();
         }
 
 
@@ -36,7 +41,7 @@ namespace ERA_CreatureEdit
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "XML files (*.xml)|*.xml|All files (*.*)|*.*";
+                openFileDialog.Filter = "*.json";
                 openFileDialog.Title = "Select Configuration File";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -52,18 +57,17 @@ namespace ERA_CreatureEdit
         {
             try
             {
-                xmlDoc = new XmlDocument();
-                xmlDoc.Load(ConfigFilePath);
+                // Load JSON as a mutable object
+                var jsonConfig = JsonNode.Parse(File.ReadAllText(ConfigFilePath))!.AsObject();
 
                 // Display XML content
-                richTextBoxXml.Text = FormatXml(xmlDoc.OuterXml);
+                richTextBoxXml.Text = jsonConfig.ToString();
 
-                // Extract and display creature path
-                XmlNode node = xmlDoc.SelectSingleNode("//add[@key='Default ERA Creature File Path']");
-                if (node != null)
-                {
-                    textBoxCreaturePath.Text = node.Attributes["value"]?.Value ?? "";
-                }
+                var Config = new GetConfig.ConfigurationManager(ConfigFilePath); //load basic & default configuration 
+                textBoxFilePath.Text = ConfigFilePath;
+                textBoxCreaturePath.Text = Config.GetAppSetting("AppSettings","ERA_CreatureFolder", @"C:\ERA\RMC\Configuration\Creatures");
+                checkBoxSaveAvatar_Grayescale.Checked = Config.GetAppSetting("AppSettings","AvatarGreyscale", true);
+
             }
             catch (Exception ex)
             {
@@ -83,22 +87,11 @@ namespace ERA_CreatureEdit
                     string selectedPath = folderDialog.SelectedPath;
                     textBoxCreaturePath.Text = selectedPath;
                     CreaturePath = selectedPath;
-                    // Update XML in memory
-                    UpdateXmlPath(selectedPath);
+
                 }
             }
         }
 
-        private void UpdateXmlPath(string newPath)
-        {
-            if (xmlDoc == null) return;
-
-            XmlNode node = xmlDoc.SelectSingleNode("//add[@key='Default ERA Creature File Path']");
-            if (node != null)
-            {
-                node.Attributes["value"].Value = newPath;
-                richTextBoxXml.Text = FormatXml(xmlDoc.OuterXml);            }
-        }
 
         private void ButtonSave_Click(object sender, EventArgs e)
         {
@@ -110,8 +103,12 @@ namespace ERA_CreatureEdit
 
             try
             {
-                // Save current XML content
-                xmlDoc.Save(ConfigFilePath);
+                // Save current content
+                var Config = new GetConfig.ConfigurationManager(ConfigFilePath); //load basic & default configuration 
+
+                Config.AddOrUpdateAppSetting(string.Join(":", "AppSettings", "ERA_CreatureFolder"), CreaturePath);
+                Config.AddOrUpdateAppSetting(string.Join(":", "AppSettings", "UseGreyscaleAvatar"), AvatarGreyscale);
+
                 MessageBox.Show("Configuration saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -128,23 +125,20 @@ namespace ERA_CreatureEdit
             }
         }
 
-        private string FormatXml(string xml)
-        {
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xml);
-
-            System.IO.StringWriter sw = new System.IO.StringWriter();
-            XmlTextWriter writer = new XmlTextWriter(sw);
-            writer.Formatting = System.Xml.Formatting.Indented;
-            writer.Indentation = 4;
-            doc.WriteContentTo(writer);
-
-            return sw.ToString();
-        }
 
         private void ConfigEditor_Load(object sender, EventArgs e)
         {
+            LoadConfigFile();
+        }
 
+        private void butClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void checkBoxSaveAvatar_Grayescale_CheckedChanged(object sender, EventArgs e)
+        {
+            AvatarGreyscale = checkBoxSaveAvatar_Grayescale.Checked;
         }
     }
 }

@@ -59,11 +59,11 @@ namespace ERA_CreatureEdit.Models
             int startBracket = txtInput.IndexOf('[');
             int endBracket = txtInput.IndexOf(']');
 
-            if (startBracket != 0 || endBracket <= startBracket + 1)
+            if (startBracket < 5 || endBracket <= startBracket + 1)
                 throw new FormatException("Invalid format. Expected format:  Name [realm]");
 
             string realmPart = txtInput.Substring(startBracket + 1, endBracket - startBracket - 1);
-            string namePart = txtInput.Substring(endBracket + 1).Trim();
+            string namePart = txtInput.Substring(0, startBracket -1).Trim();
             if (string.IsNullOrEmpty(namePart))
                 throw new FormatException("Name cannot be empty.");
 

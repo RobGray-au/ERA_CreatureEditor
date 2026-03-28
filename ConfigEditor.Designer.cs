@@ -39,6 +39,7 @@
             buttonSave = new Button();
             buttonRefresh = new Button();
             butClose = new Button();
+            checkBoxSaveAvatar_Grayescale = new CheckBox();
             SuspendLayout();
             // 
             // labelCurrentPath
@@ -56,15 +57,15 @@
             textBoxFilePath.Location = new Point(10, 30);
             textBoxFilePath.Name = "textBoxFilePath";
             textBoxFilePath.ReadOnly = true;
-            textBoxFilePath.Size = new Size(360, 23);
+            textBoxFilePath.Size = new Size(532, 23);
             textBoxFilePath.TabIndex = 1;
             // 
             // buttonOpenFile
             // 
-            buttonOpenFile.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            buttonOpenFile.Location = new Point(395, 29);
+            buttonOpenFile.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonOpenFile.Location = new Point(569, 29);
             buttonOpenFile.Name = "buttonOpenFile";
-            buttonOpenFile.Size = new Size(100, 23);
+            buttonOpenFile.Size = new Size(98, 23);
             buttonOpenFile.TabIndex = 2;
             buttonOpenFile.Text = "Open Config File";
             buttonOpenFile.Click += ButtonOpenFile_Click;
@@ -83,15 +84,15 @@
             textBoxCreaturePath.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             textBoxCreaturePath.Location = new Point(10, 90);
             textBoxCreaturePath.Name = "textBoxCreaturePath";
-            textBoxCreaturePath.Size = new Size(360, 23);
+            textBoxCreaturePath.Size = new Size(532, 23);
             textBoxCreaturePath.TabIndex = 4;
             // 
             // buttonBrowseFolder
             // 
-            buttonBrowseFolder.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            buttonBrowseFolder.Location = new Point(395, 90);
+            buttonBrowseFolder.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonBrowseFolder.Location = new Point(598, 90);
             buttonBrowseFolder.Name = "buttonBrowseFolder";
-            buttonBrowseFolder.Size = new Size(100, 23);
+            buttonBrowseFolder.Size = new Size(69, 23);
             buttonBrowseFolder.TabIndex = 5;
             buttonBrowseFolder.Text = "Browse...";
             buttonBrowseFolder.Click += ButtonBrowseFolder_Click;
@@ -99,20 +100,20 @@
             // labelXmlContent
             // 
             labelXmlContent.AutoSize = true;
-            labelXmlContent.Location = new Point(10, 130);
+            labelXmlContent.Location = new Point(12, 197);
             labelXmlContent.Name = "labelXmlContent";
-            labelXmlContent.Size = new Size(80, 15);
+            labelXmlContent.Size = new Size(84, 15);
             labelXmlContent.TabIndex = 6;
-            labelXmlContent.Text = "XML Content:";
+            labelXmlContent.Text = "JSON Content:";
             // 
             // richTextBoxXml
             // 
             richTextBoxXml.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            richTextBoxXml.Enabled = false;
-            richTextBoxXml.Font = new Font("Courier New", 9F);
-            richTextBoxXml.Location = new Point(10, 150);
+            richTextBoxXml.Font = new Font("Courier New", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            richTextBoxXml.Location = new Point(10, 215);
             richTextBoxXml.Name = "richTextBoxXml";
-            richTextBoxXml.Size = new Size(428, 180);
+            richTextBoxXml.ShowSelectionMargin = true;
+            richTextBoxXml.Size = new Size(657, 115);
             richTextBoxXml.TabIndex = 7;
             richTextBoxXml.Text = "";
             // 
@@ -139,17 +140,30 @@
             // butClose
             // 
             butClose.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            butClose.Location = new Point(437, 340);
+            butClose.Location = new Point(609, 340);
             butClose.Name = "butClose";
             butClose.Size = new Size(58, 23);
             butClose.TabIndex = 10;
             butClose.Text = "Close";
+            butClose.Click += butClose_Click;
+            // 
+            // checkBoxSaveAvatar_Grayescale
+            // 
+            checkBoxSaveAvatar_Grayescale.AutoSize = true;
+            checkBoxSaveAvatar_Grayescale.Location = new Point(12, 121);
+            checkBoxSaveAvatar_Grayescale.Name = "checkBoxSaveAvatar_Grayescale";
+            checkBoxSaveAvatar_Grayescale.Size = new Size(160, 19);
+            checkBoxSaveAvatar_Grayescale.TabIndex = 11;
+            checkBoxSaveAvatar_Grayescale.Text = "Save Avatar as Grayescale";
+            checkBoxSaveAvatar_Grayescale.UseVisualStyleBackColor = true;
+            checkBoxSaveAvatar_Grayescale.CheckedChanged += checkBoxSaveAvatar_Grayescale_CheckedChanged;
             // 
             // ConfigEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(510, 375);
+            ClientSize = new Size(682, 375);
+            Controls.Add(checkBoxSaveAvatar_Grayescale);
             Controls.Add(butClose);
             Controls.Add(labelCurrentPath);
             Controls.Add(textBoxFilePath);
@@ -179,6 +193,7 @@
         private Button buttonSave;
         private Button buttonRefresh;
         private Button butClose;
+        private CheckBox checkBoxSaveAvatar_Grayescale;
     }
 
     #endregion
