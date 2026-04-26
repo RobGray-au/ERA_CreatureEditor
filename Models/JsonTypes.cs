@@ -74,4 +74,19 @@ namespace ERA_CreatureEdit.Models
         }
     }
 
+
+    public class AdjustmentType
+    {
+        //"RollLimit": 99,        "A": 1,        "B": 2,        "C": 3,        "D": 5,        "E": 8,        "F": 10,        "G": 12,        "H": 15
+        public int RollLimit { get; set; }
+        public int A { get; set; }
+        public int B { get; set; }
+        public int C { get; set; }
+        public int D { get; set; }
+        public int E { get; set; }
+        public int F { get; set; }
+        public int G { get; set; }
+        public int H { get; set; }
+
+    }
 }
